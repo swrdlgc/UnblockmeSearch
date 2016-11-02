@@ -26,22 +26,28 @@ public class Status {
 	public long getCode() {
 		return code;
 	}
-	
+
 	public int getCntStep() {
 		return cntStep;
 	}
 
-	public void print() {
+	public void print(StringBuilder sb) {
 		if (status != null) {
 			step.stepBack();
-			status.print();
-			System.err.format("move [%s]->%s", print(step.getBlock().getCell()), step.getMove());
+			status.print(sb);
+			Block block = step.getBlock();
+			sb.append(String.format("move %4d[%s]->{%10s %d}", block.getId(),
+					print(block.getCell()), step.getMove(), step.getOffset()));
 			step.stepIn();
-			System.err.format(" = [%s]\n", print(step.getBlock().getCell()));
+			sb.append(String.format(" = %4d[%s]\n", block.getId(),
+					print(block.getCell())));
+		} else {
+			sb.append("==========================================================================\n");
 		}
 	}
-	
+
 	private String print(Rectangle rect) {
-		return String.format("%d, %d, %d, %d", rect.x, rect.y, rect.width, rect.height);
+		return String.format("%d, %d, %d, %d", rect.x, rect.y, rect.width,
+				rect.height);
 	}
 }

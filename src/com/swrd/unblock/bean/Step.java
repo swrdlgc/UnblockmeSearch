@@ -7,10 +7,12 @@ public class Step {
 
 	private Block block;
 	private Move move;
+	private int offset;
 
-	public Step(Block block, Move move) {
+	public Step(Block block, Move move, int offset) {
 		this.block = block;
 		this.move = move;
+		this.offset = offset;
 	}
 
 	public Block getBlock() {
@@ -21,19 +23,23 @@ public class Step {
 		return move;
 	}
 	
+	public int getOffset() {
+		return offset;
+	}
+	
 	public void stepBack() {
 		switch (move) {
 		case Left:
-			block.moveRight();
+			block.moveRight(offset);
 			break;
 		case Right:
-			block.moveLeft();
+			block.moveLeft(offset);
 			break;
 		case Up:
-			block.moveDown();
+			block.moveDown(offset);
 			break;
 		case Down:
-			block.moveUp();
+			block.moveUp(offset);
 			break;
 		default:
 			break;
@@ -43,16 +49,16 @@ public class Step {
 	public void stepIn() {
 		switch (move) {
 		case Left:
-			block.moveLeft();
+			block.moveLeft(offset);
 			break;
 		case Right:
-			block.moveRight();
+			block.moveRight(offset);
 			break;
 		case Up:
-			block.moveUp();
+			block.moveUp(offset);
 			break;
 		case Down:
-			block.moveDown();
+			block.moveDown(offset);
 			break;
 		default:
 			break;
