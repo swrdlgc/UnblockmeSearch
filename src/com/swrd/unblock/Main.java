@@ -36,8 +36,8 @@ public class Main {
 	static void initPuzzle(Puzzle pz) throws Exception {
 		Block.idi = new AtomicInteger(0);
 		// pz1
-		 pz.addBlock(new Block(new Rectangle(2, 0, 1, 2)));
-		 pz.addBlock(new Block(new Rectangle(0, 2, 2, 1), true));
+//		 pz.addBlock(new Block(new Rectangle(2, 0, 1, 2)));
+//		 pz.addBlock(new Block(new Rectangle(0, 2, 2, 1), true));
 
 		// pz2
 //		pz.addBlock(new Block(new Rectangle(0, 0, 2, 1)));
@@ -54,5 +54,20 @@ public class Main {
 //		pz.addBlock(new Block(new Rectangle(0, 5, 2, 1)));
 //		pz.addBlock(new Block(new Rectangle(3, 4, 1, 2)));
 //		pz.addBlock(new Block(new Rectangle(4, 4, 2, 1)));
+		
+		// pz3
+		pz.addBlock(new Block(new Rectangle(0, 0, 1, 3)));
+		pz.addBlock(new Block(new Rectangle(1, 0, 2, 1)));
+		pz.addBlock(new Block(new Rectangle(3, 0, 1, 2)));
+		pz.addBlock(new Block(new Rectangle(5, 0, 1, 3)));
+		pz.addBlock(new Block(new Rectangle(1, 1, 1, 2)));
+		pz.addBlock(new Block(new Rectangle(2, 2, 2, 1), true));
+		pz.addBlock(new Block(new Rectangle(4, 1, 1, 3)));
+		pz.addBlock(new Block(new Rectangle(0, 3, 2, 1)));
+		pz.addBlock(new Block(new Rectangle(2, 3, 1, 2)));
+		pz.addBlock(new Block(new Rectangle(3, 3, 1, 2)));
+		pz.addBlock(new Block(new Rectangle(4, 4, 2, 1)));
+		pz.addBlock(new Block(new Rectangle(1, 5, 2, 1)));
+		pz.addBlock(new Block(new Rectangle(3, 5, 2, 1)));
 	}
 }
