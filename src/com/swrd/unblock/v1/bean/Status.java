@@ -1,4 +1,4 @@
-package com.swrd.unblock.bean;
+package com.swrd.unblock.v1.bean;
 
 import java.awt.Rectangle;
 

@@ -1,11 +1,11 @@
-package com.swrd.unblock;
+package com.swrd.unblock.v1;
 
 import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.swrd.unblock.bean.Block;
-import com.swrd.unblock.bean.Puzzle;
-import com.swrd.unblock.bean.Status;
+import com.swrd.unblock.v1.bean.Block;
+import com.swrd.unblock.v1.bean.Puzzle;
+import com.swrd.unblock.v1.bean.Status;
 
 public class Main {
 	public static void main(String[] args) throws Exception {

@@ -1,7 +1,7 @@
-package com.swrd.unblock.bean;
+package com.swrd.unblock.v1.bean;
 
-import static com.swrd.unblock.bean.Puzzle.MaxHor;
-import static com.swrd.unblock.bean.Puzzle.MaxVer;
+import static com.swrd.unblock.v1.bean.Puzzle.MaxHor;
+import static com.swrd.unblock.v1.bean.Puzzle.MaxVer;
 
 import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicInteger;

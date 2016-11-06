@@ -1,4 +1,4 @@
-package com.swrd.unblock.bean;
+package com.swrd.unblock.v1.bean;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.swrd.unblock.bean.Step.Move;
+import com.swrd.unblock.v1.bean.Step.Move;
 
 public class Puzzle {
 
