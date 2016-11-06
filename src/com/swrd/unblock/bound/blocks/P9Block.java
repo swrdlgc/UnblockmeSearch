@@ -19,9 +19,12 @@ public class P9Block extends Block {
 	public P9Block(Rectangle cell, Rectangle dest) {
 		super(cell, dest);
 	}
+	
+	public P9Block(Rectangle cell, Rectangle dest, int id) {
+		super(cell, dest, id);
+	}
 
 	public Block copy() {
-		return new UnBlock(RectangleUtils.CopyRectangle(cell),
-				RectangleUtils.CopyRectangle(dest));
+		return new P9Block(RectangleUtils.CopyRectangle(cell), RectangleUtils.CopyRectangle(dest), getId());
 	}
 }

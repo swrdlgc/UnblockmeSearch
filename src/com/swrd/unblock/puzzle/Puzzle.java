@@ -14,9 +14,6 @@ import com.swrd.unblock.puzzle.step.Step;
 import com.swrd.unblock.utils.RectangleUtils;
 
 public class Puzzle implements Bound, Comparable<Puzzle> {
-	public static final Rectangle UnBlockMeDestination = new Rectangle(4, 2, 2, 1);
-	public final static int UnBlockMeWidth = 6;
-	public final static int UnBlockMeHeight = 6;
 	private String name;
 	protected Rectangle bound;
 	private List<Block> blocks;

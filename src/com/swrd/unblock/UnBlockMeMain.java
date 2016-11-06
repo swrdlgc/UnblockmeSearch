@@ -12,8 +12,7 @@ import com.swrd.unblock.solver.BfsSolver;
 import com.swrd.unblock.solver.DfsSolver;
 import com.swrd.unblock.solver.Solver;
 
-public class Main {
-	
+public class UnBlockMeMain {
 	public static void main(String[] args) {
 		unBlockMe();
 	}
@@ -23,7 +22,7 @@ public class Main {
 
 		// pz1
 //		blocks.add(new UnBlock(new Rectangle(2, 0, 1, 3)));
-//		blocks.add(new UnBlock(new Rectangle(0, 2, 2, 1), Puzzle.UnBlockMeDestination)); // king
+//		blocks.add(new UnBlock(new Rectangle(0, 2, 2, 1), UnBlock.UnBlockMeDestination)); // king
 		
 		// pz2
 		blocks.add(new UnBlock(new Rectangle(0, 0, 2, 1)));
@@ -31,7 +30,7 @@ public class Main {
 		blocks.add(new UnBlock(new Rectangle(3, 0, 2, 1)));
 		blocks.add(new UnBlock(new Rectangle(5, 0, 1, 3)));
 		blocks.add(new UnBlock(new Rectangle(0, 1, 1, 2)));
-		blocks.add(new UnBlock(new Rectangle(1, 2, 2, 1), Puzzle.UnBlockMeDestination));
+		blocks.add(new UnBlock(new Rectangle(1, 2, 2, 1), UnBlock.UnBlockMeDestination));
 		blocks.add(new UnBlock(new Rectangle(4, 1, 1, 2)));
 		blocks.add(new UnBlock(new Rectangle(0, 3, 1, 2)));
 		blocks.add(new UnBlock(new Rectangle(1, 3, 1, 2)));
@@ -47,7 +46,7 @@ public class Main {
 //		blocks.add(new UnBlock(new Rectangle(3, 0, 1, 2)));
 //		blocks.add(new UnBlock(new Rectangle(5, 0, 1, 3)));
 //		blocks.add(new UnBlock(new Rectangle(1, 1, 1, 2)));
-//		blocks.add(new UnBlock(new Rectangle(2, 2, 2, 1), Puzzle.UnBlockMeDestination));
+//		blocks.add(new UnBlock(new Rectangle(2, 2, 2, 1), UnBlock.UnBlockMeDestination));
 //		blocks.add(new UnBlock(new Rectangle(4, 1, 1, 3)));
 //		blocks.add(new UnBlock(new Rectangle(0, 3, 2, 1)));
 //		blocks.add(new UnBlock(new Rectangle(2, 3, 1, 2)));
@@ -56,7 +55,7 @@ public class Main {
 //		blocks.add(new UnBlock(new Rectangle(1, 5, 2, 1)));
 //		blocks.add(new UnBlock(new Rectangle(3, 5, 2, 1)));
 
-		Puzzle p = new Puzzle("UB-1", new Rectangle(Puzzle.UnBlockMeWidth, Puzzle.UnBlockMeHeight), blocks);
+		Puzzle p = new Puzzle("UB-1", new Rectangle(UnBlock.UnBlockMeWidth, UnBlock.UnBlockMeHeight), blocks);
 
 		return p;
 	}
@@ -89,8 +88,6 @@ public class Main {
 			}
 		}
 		System.err.println(solver);
-		
-
 	}
 
 }

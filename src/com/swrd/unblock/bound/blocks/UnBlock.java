@@ -12,6 +12,9 @@ import com.swrd.unblock.utils.RectangleUtils;
  *
  */
 public class UnBlock extends Block {
+	public final static Rectangle UnBlockMeDestination = new Rectangle(4, 2, 2, 1);
+	public final static int UnBlockMeWidth = 6;
+	public final static int UnBlockMeHeight = 6;
 	
 	public UnBlock(Rectangle cell) {
 		super(cell);
