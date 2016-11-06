@@ -119,7 +119,7 @@ public abstract class AbstractSolver implements Solver {
 			for (int i = 0; i < steps.size(); ++i) {
 				Step step = steps.get(i);
 				Block block = step.getBlock();
-				sb.append(String.format("step %d: %4d[%s]->{%10s %d}", i,
+				sb.append(String.format("step %4d: %4d[%s]->{%10s %d}", i,
 						block.getId(),
 						RectangleUtils.EncodeRectangle(block.getCell()),
 						step.getDirect(), step.getOffset()));
