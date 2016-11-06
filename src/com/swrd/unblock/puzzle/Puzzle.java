@@ -82,6 +82,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 				}
 			}
 		}
+		Collections.sort(list);
 
 		return list;
 	}
