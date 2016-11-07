@@ -28,10 +28,21 @@ public abstract class AbstractSolver implements Solver {
 
 	protected abstract void putPuzzle(Puzzle p);
 
+	private boolean checkSolved(Puzzle p) {
+		if (p.isSolved()) {
+			solved = true;
+			steps = p.getSteps();
+		}
+		return solved;
+	}
+	
 	@Override
 	public boolean search() {
 		startTime = System.currentTimeMillis();
 
+		Puzzle pz = getNextPuzzle();
+		checkSolved(pz);
+		putPuzzle(pz);
 		while (!solved) {
 			Puzzle puzzle = getNextPuzzle();
 			if (puzzle == null) {
@@ -40,9 +51,7 @@ public abstract class AbstractSolver implements Solver {
 
 			List<Puzzle> neighs = puzzle.neighbors();
 			for (Puzzle p : neighs) {
-				if (p.isSolved()) {
-					solved = true;
-					steps = p.getSteps();
+				if(checkSolved(p)) {
 					break;
 				}
 				String key = p.getKey();

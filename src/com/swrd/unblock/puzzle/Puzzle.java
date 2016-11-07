@@ -23,6 +23,8 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	private Puzzle father;
 	private Step step;
 	private BitArray2D status;
+	
+	private double score = -1;
 
 	public Puzzle(String name, PuzzleType type, Rectangle bound, List<Block> blocks) {
 		this(name, type, bound, blocks, null, null);
@@ -142,11 +144,14 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	}
 	
 	public double score() {
-		double s = 0;
-		for (Block b : blocks) {
-			s += b.score();
+		if(score == -1) {
+			double s = 0;
+			for (Block b : blocks) {
+				s += b.score();
+			}
+			score = s;
 		}
-		return s;
+		return score;
 	}
 
 	@Override

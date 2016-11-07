@@ -13,6 +13,7 @@ public abstract class Block implements Bound {
 	public static AtomicInteger idi = new AtomicInteger(0);
 
 	private int id;
+	private double score = -1;
 	protected BlockType type;
 	protected Rectangle cell;
 	protected Rectangle dest;
@@ -52,11 +53,15 @@ public abstract class Block implements Bound {
 		double res = 1.0;
 
 		if (dest != null) {
-			Rectangle ur = cell.union(dest);
-			res *= cell.width;
-			res *= cell.height;
-			res /= ur.width;
-			res /= ur.height;
+			if (score == -1) {
+				Rectangle ur = cell.union(dest);
+				res *= cell.width;
+				res *= cell.height;
+				res /= ur.width;
+				res /= ur.height;
+				score = res;
+			}
+			return score;
 		}
 
 		return res;

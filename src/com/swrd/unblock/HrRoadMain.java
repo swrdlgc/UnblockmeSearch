@@ -47,12 +47,12 @@ public class HrRoadMain {
 				
 		// DFS
 		Solver solver = new DfsSolver(p, "DFS");
-		solver.search();
+//		solver.search();
 		System.err.println(solver);
 		
 		// BFS
 		solver = new BfsSolver(p, "BFS");
-		solver.search();
+//		solver.search();
 		System.err.println(solver);
 		
 		// A-star

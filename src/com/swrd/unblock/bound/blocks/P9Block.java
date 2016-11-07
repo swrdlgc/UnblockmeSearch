@@ -11,7 +11,14 @@ import com.swrd.unblock.utils.RectangleUtils;
  *
  */
 public class P9Block extends Block {
-
+	public final static int P9Width = 3;
+	public final static int P9Height = 3;
+	public final static Rectangle P9BlockDestination[] = new Rectangle[] { 
+		new Rectangle(0, 0, 1, 1), new Rectangle(0, 1, 1, 1), new Rectangle(0, 2, 1, 1),
+		new Rectangle(1, 0, 1, 1), new Rectangle(1, 1, 1, 1), new Rectangle(1, 2, 1, 1),
+		new Rectangle(2, 0, 1, 1), new Rectangle(2, 1, 1, 1)
+		};
+	
 	public P9Block(Rectangle cell) {
 		super(cell);
 	}
