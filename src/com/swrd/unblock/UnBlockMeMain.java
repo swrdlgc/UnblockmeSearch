@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.swrd.unblock.bound.blocks.Block;
 import com.swrd.unblock.bound.blocks.UnBlock;
+import com.swrd.unblock.ems.PuzzleType;
 import com.swrd.unblock.puzzle.Puzzle;
 import com.swrd.unblock.solver.AstarSolver;
 import com.swrd.unblock.solver.BfsSolver;
@@ -55,7 +56,7 @@ public class UnBlockMeMain {
 //		blocks.add(new UnBlock(new Rectangle(1, 5, 2, 1)));
 //		blocks.add(new UnBlock(new Rectangle(3, 5, 2, 1)));
 
-		Puzzle p = new Puzzle("UB-1", new Rectangle(UnBlock.UnBlockMeWidth, UnBlock.UnBlockMeHeight), blocks);
+		Puzzle p = new Puzzle("UB-1", PuzzleType.UnBlockMe, new Rectangle(UnBlock.UnBlockMeWidth, UnBlock.UnBlockMeHeight), blocks);
 
 		return p;
 	}

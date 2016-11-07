@@ -10,30 +10,36 @@ import com.swrd.unblock.bound.blocks.Block;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.bound.ds.bitarray.ByteBitArray2D;
 import com.swrd.unblock.ems.Direction;
+import com.swrd.unblock.ems.PuzzleType;
 import com.swrd.unblock.puzzle.step.Step;
 import com.swrd.unblock.utils.RectangleUtils;
 
 public class Puzzle implements Bound, Comparable<Puzzle> {
 	private String name;
-	protected Rectangle bound;
+	private PuzzleType type;
+	private Rectangle bound;
 	private List<Block> blocks;
 
 	private Puzzle father;
 	private Step step;
 	private BitArray2D status;
 
-	public Puzzle(String name, Rectangle bound, List<Block> blocks) {
-		this(name, bound, blocks, null, null);
+	public Puzzle(String name, PuzzleType type, Rectangle bound, List<Block> blocks) {
+		this(name, type, bound, blocks, null, null);
 	}
 
-	private Puzzle(String name, Rectangle bound, List<Block> blocks,
+	private Puzzle(String name, PuzzleType type, Rectangle bound, List<Block> blocks,
 			Puzzle father, Step step) {
 		this.name = name;
+		this.type = type;
 		this.bound = bound;
 		this.blocks = blocks;
 		this.father = father;
 		this.step = step;
 
+		if(type == PuzzleType.HRRoad) {
+			Collections.sort((List) blocks);
+		}
 		if(!calcStatus()) {
 			System.err.println("calc status error");
 		}
@@ -73,7 +79,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 					Step step = new Step(b, direct, i, level);
 					step.stepIn();
 					List<Block> blocks = copyBlocks();
-					Puzzle puzzle = new Puzzle(name, bound, blocks, this, step);
+					Puzzle puzzle = new Puzzle(name, type, bound, blocks, this, step);
 					list.add(puzzle);
 					step.stepBack();
 				}
