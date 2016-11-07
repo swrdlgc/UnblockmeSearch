@@ -12,6 +12,7 @@ TODO:
 	Idea scoring puzzle.
 		union area - Implements
 		manhattan distance
+	Puzzle pre-judgement.(P9 may have no ans).
 	UI
 	
 Time Performance:(t-unit: ms. directory-res for more)
