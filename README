@@ -14,13 +14,12 @@ TODO:
 		manhattan distance
 	UI
 	
-Time Performance:(ms)
+Time Performance:(t-unit: ms. directory-res for more)
 			UnblockMe		HuaRongRoad		P9
-DFS			225				8892			1153
-BFS			644				995				7498
-A*(UA)		119				48847			97479
-IDEA*		700				10236			53607		---Last DFS
-------directory-res for more
+DFS			225			8892			1153
+BFS			644			995			7498
+A*(UA)			119			48847			97479
+IDEA*			700			10236			53607		---Last DFS
 
 Status space:
 UnblockMe:	<	1w		?
