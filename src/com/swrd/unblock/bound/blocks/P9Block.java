@@ -32,6 +32,6 @@ public class P9Block extends Block {
 	}
 
 	public Block copy() {
-		return new P9Block(RectangleUtils.CopyRectangle(cell), RectangleUtils.CopyRectangle(dest), getId());
+		return new P9Block(RectangleUtils.CopyRectangle(cell), dest, getId());
 	}
 }

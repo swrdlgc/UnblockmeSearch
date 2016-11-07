@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.swrd.unblock.bound.Bound;
+import com.swrd.unblock.bound.blocks.score.Scorer;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.ems.BlockType;
 import com.swrd.unblock.ems.Direction;
@@ -50,21 +51,13 @@ public abstract class Block implements Bound {
 	 * @return
 	 */
 	public double score() {
-		double res = 1.0;
-
 		if (dest != null) {
 			if (score == -1) {
-				Rectangle ur = cell.union(dest);
-				res *= cell.width;
-				res *= cell.height;
-				res /= ur.width;
-				res /= ur.height;
-				score = res;
+				score = Scorer.scorer.score(cell, dest);
 			}
 			return score;
-		}
-
-		return res;
+		} 
+		return 1.0;
 	}
 
 	public boolean atDestination() {

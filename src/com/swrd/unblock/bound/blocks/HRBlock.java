@@ -25,7 +25,7 @@ public class HRBlock extends Block implements Comparable<HRBlock> {
 	}
 
 	public Block copy() {
-		return new HRBlock(RectangleUtils.CopyRectangle(cell), RectangleUtils.CopyRectangle(dest), getId());
+		return new HRBlock(RectangleUtils.CopyRectangle(cell), dest, getId());
 	}
 	
 	public int getArea() {

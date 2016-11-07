@@ -29,7 +29,7 @@ public class UnBlock extends Block {
 	}
 
 	public Block copy() {
-		return new UnBlock(RectangleUtils.CopyRectangle(cell), RectangleUtils.CopyRectangle(dest), getId());
+		return new UnBlock(RectangleUtils.CopyRectangle(cell), dest, getId());
 	}
 
 	@Override
