@@ -8,11 +8,12 @@ Futures:
 	
 TODO:
 	Double-BFS for P9(Ending known games).
+	Build Graph for P9(Status Spance Known).
+	Puzzle pre-judgement.(P9 may have no ans).
 	IDA* Algorithm.
 	Idea scoring puzzle.
 		union area - Implements
 		manhattan distance
-	Puzzle pre-judgement.(P9 may have no ans).
 	UI
 	
 Time Performance:(t-unit: ms. directory-res for more)
