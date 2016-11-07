@@ -8,7 +8,6 @@ import com.swrd.unblock.bound.blocks.score.Scorer;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.ems.BlockType;
 import com.swrd.unblock.ems.Direction;
-import com.swrd.unblock.utils.RectangleUtils;
 
 public abstract class Block implements Bound {
 	public static AtomicInteger idi = new AtomicInteger(0);
@@ -99,10 +98,21 @@ public abstract class Block implements Bound {
 			if (!ba.checkBound(r)) {
 				break;
 			}
-			r = RectangleUtils.SubRectangle(r, cell);
-			if (ba.isMarked(r)) {
-				break;
+			
+			for(int ri = 0; ri < r.width; ++ri) {
+				for(int rj = 0; rj < r.height; ++rj) {
+					int x = r.x + ri;
+					int y = r.y + rj;
+					if (!cell.contains(x, y) && ba.isFilled(x, y)) {
+						return i - 1;
+					}
+				}
 			}
+			
+//			r = RectangleUtils.SubRectangle(r, cell);
+//			if (ba.isMarked(r)) {
+//				break;
+//			}
 		}
 		return i - 1;
 	}
