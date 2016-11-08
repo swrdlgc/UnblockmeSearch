@@ -66,14 +66,19 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		}
 		return true;
 	}
-
-	public List<Puzzle> neighbors() {
-		List<Puzzle> list = new ArrayList<>();
-
+	
+	private int getLevel() {
 		int level = 1;
 		if (step != null) {
 			level = step.getLevel() + 1;
 		}
+		return level;
+	}
+
+	public List<Puzzle> neighbors() {
+		List<Puzzle> list = new ArrayList<>();
+
+		int level = getLevel();
 		for (Block b : blocks) {
 			for (Direction direct : Direction.values()) {
 				int offset = b.check(status, direct);
@@ -158,8 +163,10 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	public int compareTo(Puzzle o) {
 		if(score() > o.score()) {
 			return 1;
-		} else {
+		} else if(score() < o.score()) {
 			return -1;
+		} else {
+			return getLevel() - o.getLevel();
 		}
 	}
 }

@@ -2,28 +2,30 @@
 An Moving-Block_Game searcher.
 
 Futures:
-	Support steps, status limiting.
-	Support DFS, BFS, A*, IDEA* Algorithm.
-	Support UnblockMe, HuaRongRoad, P9(octet, 八数码) games. 
-	
+    Support steps, status limiting.
+    Support DFS, BFS, A*, DFS+StepIn, IDEA* Algorithm.
+    Support UnblockMe, HuaRongRoad, P9(octet, 八数码) games.
+    Support Manhattan, UnionArea Scorer. 
+    
 TODO:
-	Double-BFS for P9(Ending known games).
-	Build Graph for P9(Status Spance Known).
-	Puzzle pre-judgement.(P9 may have no ans).
-	IDA* Algorithm.
-	Idea scoring puzzle.
-		union area - Implements
-		manhattan distance
-	UI
-	
+    Double-BFS for P9(Ending known games).
+    Build Graph for P9(Status Space Known).
+    Puzzle Pre-Judgement.(P9 may have no ans).
+    IDA* Algorithm.
+    Idea scoring puzzle.
+        union area - I
+        Manhattan distance - I
+    UI
+    
 Time Performance:(t-unit: ms. directory-res for more)
-			UnblockMe		HuaRongRoad		P9
-DFS			225			8892			1153
-BFS			644			995			7498
-A*(UA)			119			287901			97479
-IDEA*			700			10236			4438		---Last DFS
+               UnblockMe      HuaRongRoad     P9
+DFS            225            8892            1153
+BFS            644            995             7498
+A*(UA)         119            17433           66072       ---Use UnionArea Scorer
+DFS+StepIn     700            10236           4438        ---Last DFS
+IDEA*
 
 Status space:
-UnblockMe:	<	1w	?
-HuaRongRoad:	<	142560	=	C(12,1)*C(12,5)*C(6,4)
-P9:		=	362880	=	9!
+UnblockMe:    <    1w        ?
+HuaRongRoad:  <    142560    =    C(12,1)*C(12,5)*C(6,4)
+P9:           =    362880    =    9!
