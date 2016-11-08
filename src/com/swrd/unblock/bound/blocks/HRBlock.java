@@ -11,7 +11,10 @@ import com.swrd.unblock.utils.RectangleUtils;
  *
  */
 public class HRBlock extends Block implements Comparable<HRBlock> {
-
+	public static final int HRWidth = 4;
+	public static final int HRHeight = 5;
+	public static final Rectangle HRDestination = new Rectangle(1, 3, 2, 2);
+		
 	public HRBlock(Rectangle cell) {
 		super(cell);
 	}

@@ -3,14 +3,20 @@ package com.swrd.unblock.solver;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.swrd.unblock.ems.SolverType;
 import com.swrd.unblock.puzzle.Puzzle;
+import com.swrd.unblock.solver.abs.AbstractSolver;
 
 public class DfsSolver extends AbstractSolver {
 
 	private List<Puzzle> puzzles = new LinkedList<>();
 	
 	public DfsSolver(Puzzle puzzle, String name) {
-		super(name);
+		this(puzzle, name, SolverType.DFS);
+	}
+	
+	public DfsSolver(Puzzle puzzle, String name, SolverType type) {
+		super(name, type);
 		putPuzzle(puzzle);
 	}
 	

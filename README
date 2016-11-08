@@ -19,10 +19,10 @@ TODO:
     
 Time Performance:(t-unit: ms. directory-res for more)
                UnblockMe      HuaRongRoad     P9
-DFS            225            8892            1153
-BFS            644            995             7498
-A*(UA)         119            17433           66072       ---Use UnionArea Scorer
-DFS+StepIn     700            10236           4438        ---Last DFS
+DFS            265            2834            7701
+BFS            550            1056            5653
+A*(UA)         390            14133           181439       ---Use UnionArea Scorer
+DFS+StepIn     3036           161082          377039
 IDEA*
 
 Status space:

@@ -3,14 +3,16 @@ package com.swrd.unblock.solver;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import com.swrd.unblock.ems.SolverType;
 import com.swrd.unblock.puzzle.Puzzle;
+import com.swrd.unblock.solver.abs.AbstractSolver;
 
 public class AstarSolver extends AbstractSolver {
 	
 	private Queue<Puzzle> pq = new PriorityQueue<Puzzle>();
 	
 	public AstarSolver(Puzzle puzzle, String name) {
-		super(name);
+		super(name, SolverType.Astar);
 		putPuzzle(puzzle);
 	}
 	
