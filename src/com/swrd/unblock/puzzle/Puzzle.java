@@ -165,7 +165,12 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		} else if(score() < o.score()) {
 			return -1;
 		} else {
-			return getLevel() - o.getLevel();
+			int cl = o.getLevel() - getLevel();
+			if(cl != 0) {
+				return cl;
+			}
+			int of = getStep().getOffset() - o.getStep().getOffset();
+			return of;
 		}
 	}
 }

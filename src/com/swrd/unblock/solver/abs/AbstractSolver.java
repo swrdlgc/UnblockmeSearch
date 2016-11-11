@@ -53,7 +53,9 @@ public abstract class AbstractSolver implements Solver {
 			}
 
 			List<Puzzle> neighs = puzzle.neighbors();
-			Collections.sort(neighs);
+			if(type != SolverType.Astar && type != SolverType.IAstar) {
+				Collections.sort(neighs);
+			}
 			if(type == SolverType.DFS || type == SolverType.IDFS) {
 				Collections.reverse(neighs);
 			}
