@@ -16,6 +16,7 @@ public abstract class AbstractSolver implements Solver {
 	private long startTime;
 	private long endTime;
 	private boolean solved;
+	private boolean stop;
 	private List<Step> steps;
 	private Map<String, Puzzle> expandNodes = new HashMap<>();
 	private int maxStep = Integer.MAX_VALUE;
@@ -39,14 +40,44 @@ public abstract class AbstractSolver implements Solver {
 		return solved;
 	}
 	
+	private boolean addPuzzle(Puzzle p) {
+		String key = p.getKey();
+		if(expandNodes.size() > maxNodes) {
+			stop = true;
+			return false;
+		}
+		int s = 0;
+//		int os = 0;
+		if (p.getStep() != null) {
+			s = p.getStep().getLevel();
+			if(s > maxStep) {
+				return false;
+			}
+		}
+		Puzzle op = expandNodes.get(key);
+//		if (op != null && op.getStep() != null) {
+//			os = op.getStep().getLevel();
+//		}
+		if (op == null) {// || os > s) { // replace with low level can get better ans, but waste a lot of time.
+			putPuzzle(p);
+			expandNodes.put(key, p);
+//			if(expandNodes.size() % 1000 == 0) {
+//				System.out.println(expandNodes.size());
+//			}
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean search() {
 		startTime = System.currentTimeMillis();
 
 		Puzzle pz = getNextPuzzle();
 		checkSolved(pz);
-		putPuzzle(pz);
-		while (!solved) {
+		addPuzzle(pz);
+		stop = false;
+		while (!solved && !stop) {
 			Puzzle puzzle = getNextPuzzle();
 			if (puzzle == null) {
 				break;
@@ -60,19 +91,10 @@ public abstract class AbstractSolver implements Solver {
 				Collections.reverse(neighs);
 			}
 			for (Puzzle p : neighs) {
-				if(checkSolved(p)) {
+				if (checkSolved(p)) {
 					break;
 				}
-				String key = p.getKey();
-				if (p.getStep().getLevel() <= maxStep
-						&& expandNodes.size() <= maxNodes) {
-					Puzzle op = expandNodes.get(key);
-					if (op == null
-							|| op.getStep().getLevel() > p.getStep().getLevel()) {
-						putPuzzle(p);
-						expandNodes.put(key, p);
-					}
-				}
+				addPuzzle(p);
 			}
 		}
 
