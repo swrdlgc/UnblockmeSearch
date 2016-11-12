@@ -43,6 +43,6 @@ Performance:(directory-res for more)
     IDEA*          43             171             28
 
 Status space:
-UnblockMe:    <    1w        ?
-HuaRongRoad:  <    142560    =    C(12,1)*C(12,5)*C(6,4)
-P9:           =    362880    =    9!
+    UnblockMe:    <    1w        ?
+    HuaRongRoad:  <    142560    =    C(12,1)*C(12,5)*C(6,4)
+    P9:           =    362880    =    9!
