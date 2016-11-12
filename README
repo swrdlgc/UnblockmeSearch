@@ -1,5 +1,5 @@
 # UnblockmeSearch
-An Moving-Block_Game searcher.
+A Moving-Block_Game searcher.
 
 Futures:
     Support steps, status limiting.
@@ -18,29 +18,29 @@ TODO:
     UI
     
 Performance:(directory-res for more)
-Time:(t-unit: ms)
-               UnblockMe      HuaRongRoad     P9
-DFS            374            1636            7701
-BFS            480            964             5857
-A*(UA)         196            4257            10195       ---Use UnionArea Scorer
-DFS+StepIn     2640           27262           6350
-IDEA*          2867           36643           9930        ---Use UnionArea Scorer
+    Time:(t-unit: ms)
+                   UnblockMe      HuaRongRoad     P9
+    DFS            374            1636            7701
+    BFS            480            964             5857
+    A*(UA)         196            4257            10195       ---Use UnionArea Scorer
+    DFS+StepIn     2640           27262           6350
+    IDEA*          2867           36643           9930        ---Use UnionArea Scorer
 
-Nodes:
-               UnblockMe      HuaRongRoad     P9
-DFS            806            12630           143325
-BFS            879            9816            121504
-A*(UA)         752            47148           181439       
-DFS+StepIn     10767          327758          117907
-IDEA*          8312           391260          149569
+    Nodes:
+                   UnblockMe      HuaRongRoad     P9
+    DFS            806            12630           143325
+    BFS            879            9816            121504
+    A*(UA)         752            47148           181439       
+    DFS+StepIn     10767          327758          117907
+    IDEA*          8312           391260          149569
 
-Steps:
-               UnblockMe      HuaRongRoad     P9
-DFS            220            4541            70974
-BFS            20             55              24
-A*(UA)         147            4429            372       
-DFS+StepIn     51             127             26
-IDEA*          43             171             28
+    Steps:
+                   UnblockMe      HuaRongRoad     P9
+    DFS            220            4541            70974
+    BFS            20             55              24
+    A*(UA)         147            4429            372       
+    DFS+StepIn     51             127             26
+    IDEA*          43             171             28
 
 Status space:
 UnblockMe:    <    1w        ?
