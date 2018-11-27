@@ -1,7 +1,7 @@
 # UnblockmeSearch
 A Moving-Block_Game searcher.
 
-Futures:
+Features:
     Support steps, status limiting.
     Support DFS, BFS, A*, DFS+StepIn, IDEA* Algorithm.
     Support UnblockMe, HuaRongRoad, P9(octet, 八数码) games.
