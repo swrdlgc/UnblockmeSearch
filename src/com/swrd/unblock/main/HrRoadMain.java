@@ -15,7 +15,7 @@ public class HrRoadMain extends Main {
 		play(getPuzzle(), args);
 	}
 
-	static Puzzle getPuzzle() {
+	public static Puzzle getPuzzle() {
 		List<Block> blocks = new ArrayList<Block>();
 
 		// pz1
@@ -31,6 +31,7 @@ public class HrRoadMain extends Main {
 		blocks.add(new HRBlock(new Rectangle(2, 4, 2, 1)));
 
 		Puzzle p = new Puzzle("HR-1", PuzzleType.HRRoad, new Rectangle(HRBlock.HRWidth, HRBlock.HRHeight), blocks);
+		p.setExit(new Rectangle(1, 5, 2, 1));
 
 		return p;
 	}

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.graphics.Point;
+
 import com.swrd.unblock.bound.Bound;
 import com.swrd.unblock.bound.blocks.Block;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
@@ -25,11 +28,14 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	private BitArray2D status;
 	
 	private double score = -1;
+	
+	private Rectangle Exit;
 
 	public Puzzle(String name, PuzzleType type, Rectangle bound, List<Block> blocks) {
 		this(name, type, bound, blocks, null, null);
 	}
 
+	@SuppressWarnings("unchecked")
 	private Puzzle(String name, PuzzleType type, Rectangle bound, List<Block> blocks,
 			Puzzle father, Step step) {
 		this.name = name;
@@ -157,7 +163,73 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		}
 		return score;
 	}
+	
+	public Point belongsToCell(int col, int row) {
+		Block block = getBlock(col, row);
+		if(block != null) {
+			java.awt.Point p = block.getCell().getLocation();
+			return new Point(p.x, p.y);
+		}
+		return new Point(col, row);
+	}
 
+	public void selected(int col, int row) {
+		Block block = getBlock(col, row);
+		if(block == null) {
+			for(Block b : blocks) {
+				if(b.isSelected()) {
+					Direction direction = b.getDirection(col, row);
+					if(direction != null) {
+						int offset = b.check(status, direction);
+						if(offset >= 1) {
+							b.move(direction, offset);
+							System.err.println(new Step(b, direction, offset, 0));
+							calcStatus();
+							if(isSolved()) {
+								MessageDialog.openInformation(null, "Good", "Puzzle solved!");
+							}
+						}
+					}
+					return;
+				}
+			}
+		} else {
+			for(Block b : blocks) {
+				b.setSelected(false);
+			}
+			block.setSelected(true);
+		}
+	}
+	
+	public boolean isSelected(int col, int row) {
+		Block block = getBlock(col, row);
+		if(block != null) {
+			return block.isSelected();
+		}
+		return false;
+	}
+	
+	public Block getBlock(int col, int row) {
+		for(Block block : blocks) {
+			if(block.contains(col, row)) {
+				return block;
+			}
+		}
+		return null;
+	}
+	
+	public List<Block> getBlocks() {
+		return blocks;
+	}
+	
+	public void setExit(Rectangle exit) {
+		Exit = exit;
+	}
+	
+	public Rectangle getExit() {
+		return Exit;
+	}
+	
 	@Override
 	public int compareTo(Puzzle o) {
 		if(score() > o.score()) {

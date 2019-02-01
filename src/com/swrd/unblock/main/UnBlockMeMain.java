@@ -54,6 +54,7 @@ public class UnBlockMeMain extends Main {
 //		blocks.add(new UnBlock(new Rectangle(3, 5, 2, 1)));
 
 		Puzzle p = new Puzzle("UB-1", PuzzleType.UnBlockMe, new Rectangle(UnBlock.UnBlockMeWidth, UnBlock.UnBlockMeHeight), blocks);
+		p.setExit(new Rectangle(6, 2, 1, 1));
 
 		return p;
 	}

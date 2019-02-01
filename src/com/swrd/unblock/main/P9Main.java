@@ -15,28 +15,28 @@ public class P9Main extends Main {
 		play(getPuzzle(), args);
 	}
 	
-	static Puzzle getPuzzle() {
+	public static Puzzle getPuzzle() {
 		List<Block> blocks = new ArrayList<Block>();
 
 		// pz1
-//		blocks.add(new P9Block(new Rectangle(0, 0, 1, 1), P9Block.P9BlockDestination[0]));
-//		blocks.add(new P9Block(new Rectangle(0, 1, 1, 1), P9Block.P9BlockDestination[1]));
-//		blocks.add(new P9Block(new Rectangle(0, 2, 1, 1), P9Block.P9BlockDestination[2]));
-//		blocks.add(new P9Block(new Rectangle(1, 0, 1, 1), P9Block.P9BlockDestination[3]));
-//		blocks.add(new P9Block(new Rectangle(1, 1, 1, 1), P9Block.P9BlockDestination[4]));
-//		blocks.add(new P9Block(new Rectangle(1, 2, 1, 1), P9Block.P9BlockDestination[5]));
-//		blocks.add(new P9Block(new Rectangle(2, 0, 1, 1), P9Block.P9BlockDestination[6]));
-//		blocks.add(new P9Block(new Rectangle(2, 1, 1, 1), P9Block.P9BlockDestination[7]));
+//		blocks.add(new P9Block(new Rectangle(0, 0, 1, 1), 0));
+//		blocks.add(new P9Block(new Rectangle(0, 1, 1, 1), 1));
+//		blocks.add(new P9Block(new Rectangle(0, 2, 1, 1), 2));
+//		blocks.add(new P9Block(new Rectangle(1, 0, 1, 1), 3));
+//		blocks.add(new P9Block(new Rectangle(1, 1, 1, 1), 4));
+//		blocks.add(new P9Block(new Rectangle(1, 2, 1, 1), 5));
+//		blocks.add(new P9Block(new Rectangle(2, 0, 1, 1), 6));
+//		blocks.add(new P9Block(new Rectangle(2, 1, 1, 1), 7));
 		
 		// pz2
-		blocks.add(new P9Block(new Rectangle(0, 0, 1, 1), P9Block.P9BlockDestination[1]));
-		blocks.add(new P9Block(new Rectangle(0, 1, 1, 1), P9Block.P9BlockDestination[2]));
-		blocks.add(new P9Block(new Rectangle(0, 2, 1, 1), P9Block.P9BlockDestination[0]));
-		blocks.add(new P9Block(new Rectangle(1, 0, 1, 1), P9Block.P9BlockDestination[4]));
-		blocks.add(new P9Block(new Rectangle(1, 1, 1, 1), P9Block.P9BlockDestination[5]));
-		blocks.add(new P9Block(new Rectangle(1, 2, 1, 1), P9Block.P9BlockDestination[6]));
-		blocks.add(new P9Block(new Rectangle(2, 0, 1, 1), P9Block.P9BlockDestination[7]));
-		blocks.add(new P9Block(new Rectangle(2, 1, 1, 1), P9Block.P9BlockDestination[3]));
+		blocks.add(new P9Block(new Rectangle(0, 0, 1, 1), 1));
+		blocks.add(new P9Block(new Rectangle(0, 1, 1, 1), 2));
+		blocks.add(new P9Block(new Rectangle(0, 2, 1, 1), 0));
+		blocks.add(new P9Block(new Rectangle(1, 0, 1, 1), 4));
+		blocks.add(new P9Block(new Rectangle(1, 1, 1, 1), 5));
+		blocks.add(new P9Block(new Rectangle(1, 2, 1, 1), 6));
+		blocks.add(new P9Block(new Rectangle(2, 0, 1, 1), 7));
+		blocks.add(new P9Block(new Rectangle(2, 1, 1, 1), 3));
 		
 		Puzzle p = new Puzzle("P9-1", PuzzleType.P9, new Rectangle(P9Block.P9Width, P9Block.P9Height), blocks);
 

@@ -2,6 +2,7 @@ package com.swrd.unblock.puzzle.step;
 
 import com.swrd.unblock.bound.blocks.Block;
 import com.swrd.unblock.ems.Direction;
+import com.swrd.unblock.utils.RectangleUtils;
 
 public class Step {
 	private Block block;
@@ -38,5 +39,18 @@ public class Step {
 
 	public void stepIn() {
 		block.move(direct, offset);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("step: %4d[%s]->{%10s %d}", 
+				block.getId(),
+				RectangleUtils.EncodeRectangle(block.getCell()),
+				direct, offset));
+		sb.append(String.format(" = %4d[%s]", block.getId(),
+				RectangleUtils.EncodeRectangle(block.getCell())));
+		
+		return sb.toString();
 	}
 }

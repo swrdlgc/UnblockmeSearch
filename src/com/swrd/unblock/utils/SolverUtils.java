@@ -9,6 +9,10 @@ import com.swrd.unblock.solver.api.Solver;
 public class SolverUtils {
 	
 	public static String printSolver(Solver solver) {
+		return printSolver(solver, true);
+	}
+	
+	public static String printSolver(Solver solver, boolean printSteps) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("==========================================================================\n");
@@ -19,7 +23,12 @@ public class SolverUtils {
 		if (solver.isSolved()) {
 			sb.append("==========================\n");
 			List<Step> steps = solver.steps();
-			sb.append(String.format("Steps: %d\n", steps.size()));
+			sb.append(String.format("Steps: %d", steps.size()));
+			if(!printSteps) {
+				return sb.toString();
+			} else {
+				sb.append("\n");
+			}
 			for (int i = 0; i < steps.size(); ++i) {
 				Step step = steps.get(i);
 				Block block = step.getBlock();
