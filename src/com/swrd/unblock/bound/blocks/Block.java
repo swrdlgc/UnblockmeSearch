@@ -15,9 +15,17 @@ import com.swrd.unblock.ems.Direction;
 
 public abstract class Block implements Bound {
 	public static AtomicInteger idi = new AtomicInteger(0);
-	public static Color YellowColor = Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW);
-	public static Color RedColor = Display.getCurrent().getSystemColor(SWT.COLOR_RED);
+	public static Color YellowColor;
+	public static Color RedColor;
 
+	static {
+		try {
+			YellowColor = Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW);
+			RedColor = Display.getCurrent().getSystemColor(SWT.COLOR_RED);
+		} catch (Exception e) {
+		}
+	}
+	
 	private int id;
 	private double score = -1;
 	protected BlockType type;
