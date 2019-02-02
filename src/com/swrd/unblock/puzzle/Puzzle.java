@@ -36,7 +36,6 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		this(name, type, bound, blocks, null, null);
 	}
 
-	@SuppressWarnings("unchecked")
 	private Puzzle(String name, PuzzleType type, Rectangle bound, List<Block> blocks,
 			Puzzle father, Step step) {
 		this.name = name;
@@ -46,9 +45,9 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		this.father = father;
 		this.step = step;
 
-		if(type == PuzzleType.HRRoad) {
-//			Collections.sort((List) blocks);
-		}
+//		if(type == PuzzleType.HRRoad) {
+			Collections.sort(blocks);
+//		}
 		if(!calcStatus()) {
 			System.err.println("calc status error");
 		}

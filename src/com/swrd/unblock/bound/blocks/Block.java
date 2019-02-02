@@ -13,7 +13,7 @@ import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.ems.BlockType;
 import com.swrd.unblock.ems.Direction;
 
-public abstract class Block implements Bound {
+public abstract class Block implements Bound, Comparable<Block> {
 	public static AtomicInteger idi = new AtomicInteger(0);
 	public static Color YellowColor;
 	public static Color RedColor;
@@ -269,5 +269,38 @@ public abstract class Block implements Bound {
 			return id == ((Block)obj).id; 
 		}
 		return false;
+	}
+	
+	public int getArea() {
+		return cell.width * cell.height;
+	}
+	
+	@Override
+	public int compareTo(Block o) {
+//		int a = getArea();
+//		int oa = o.getArea();
+//		if(a != oa) {
+//			return a - oa;
+//		}
+		
+		int w = cell.width;
+		int ow = o.cell.width;
+		if(w != ow) {
+			return w - ow;
+		}
+		
+		int x = cell.x;
+		int ox = o.cell.x;
+		if(x != ox) {
+			return x - ox;
+		}
+		
+		int y = cell.y;
+		int oy = o.cell.y;
+		if(y != oy) {
+			return y - oy;
+		}
+		
+		return 0;
 	}
 }
