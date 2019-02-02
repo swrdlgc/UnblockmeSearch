@@ -2,6 +2,8 @@ package com.swrd.unblock.bound.blocks.score;
 
 import java.awt.Rectangle;
 
+import com.swrd.unblock.puzzle.Puzzle;
+
 public interface Scorer {
 	Scorer scorer = UnionAreaScorer.Instance;
 
@@ -13,4 +15,6 @@ public interface Scorer {
 	 * @return
 	 */
 	double score(Rectangle src, Rectangle dest);
+	
+	double score(Puzzle puzzle);
 }

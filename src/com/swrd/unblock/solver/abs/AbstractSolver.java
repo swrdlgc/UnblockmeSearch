@@ -86,9 +86,9 @@ public abstract class AbstractSolver implements Solver {
 			List<Puzzle> neighs = puzzle.neighbors();
 			if(type != SolverType.Astar && type != SolverType.IAstar) {
 				Collections.sort(neighs);
-			}
-			if(type == SolverType.DFS || type == SolverType.IDFS) {
-				Collections.reverse(neighs);
+				if(type == SolverType.DFS || type == SolverType.IDFS) {
+					Collections.reverse(neighs);
+				}
 			}
 			for (Puzzle p : neighs) {
 				if (checkSolved(p)) {

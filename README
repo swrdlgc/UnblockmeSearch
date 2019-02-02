@@ -32,7 +32,7 @@ Performance:(directory-res for more)
     BFS            869            9747            123695
     A*(UA)         654            9315            482       
     DFS+StepIn     7742           247670          136085
-    IDEA*          4318           166563          24490
+    IDEA*          4318           166563          244490
 
     Steps:
                    UnblockMe      HuaRongRoad     P9

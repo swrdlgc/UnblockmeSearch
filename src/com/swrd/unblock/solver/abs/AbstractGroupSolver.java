@@ -37,11 +37,10 @@ public abstract class AbstractGroupSolver implements GroupSolver {
 		if (puzzle.isSolved()) {
 			return true;
 		}
-		int usedNodes = 0;
-		for(int step = 1; step <= maxStep && usedNodes <= maxNodes; ++step) {
+		for(int step = 1; step <= maxStep && expandNodes <= maxNodes; ++step) {
 			Solver s = getSolver(puzzle);
 			s.setMaxStep(step);
-			s.setMaxNodes(maxNodes - usedNodes);
+			s.setMaxNodes(maxNodes - (int)expandNodes);
 			s.search();
 			runTime += s.getRunTime();
 			expandNodes += s.getExpandNodes();

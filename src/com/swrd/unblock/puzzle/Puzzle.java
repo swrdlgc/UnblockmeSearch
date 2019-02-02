@@ -10,6 +10,7 @@ import org.eclipse.swt.graphics.Point;
 
 import com.swrd.unblock.bound.Bound;
 import com.swrd.unblock.bound.blocks.Block;
+import com.swrd.unblock.bound.blocks.score.Scorer;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.bound.ds.bitarray.ByteBitArray2D;
 import com.swrd.unblock.ems.Direction;
@@ -46,7 +47,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		this.step = step;
 
 		if(type == PuzzleType.HRRoad) {
-			Collections.sort((List) blocks);
+//			Collections.sort((List) blocks);
 		}
 		if(!calcStatus()) {
 			System.err.println("calc status error");
@@ -73,7 +74,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		return true;
 	}
 	
-	private int getLevel() {
+	public int getLevel() {
 		int level = 1;
 		if (step != null) {
 			level = step.getLevel() + 1;
@@ -155,17 +156,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	
 	public double score() {
 		if(score == -1) {
-			double s = 0;
-			for (Block b : blocks) {
-				s += b.score();
-			}
-//			if(step != null) {
-//				s += step.getOffset();
-//			}
-//			if(father != null) {
-//				s += father.score;
-//			}
-			score = s;
+			score = Scorer.scorer.score(this);
 		}
 		return score;
 	}

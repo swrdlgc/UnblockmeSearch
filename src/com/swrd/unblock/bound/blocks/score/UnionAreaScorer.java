@@ -2,7 +2,7 @@ package com.swrd.unblock.bound.blocks.score;
 
 import java.awt.Rectangle;
 
-public class UnionAreaScorer implements Scorer {
+public class UnionAreaScorer extends AbstractScorer {
 	public static final Scorer Instance = new UnionAreaScorer();
 
 	private UnionAreaScorer() {

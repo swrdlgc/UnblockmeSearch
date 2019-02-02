@@ -2,7 +2,7 @@ package com.swrd.unblock.bound.blocks.score;
 
 import java.awt.Rectangle;
 
-public class MhtDisScorer implements Scorer {
+public class MhtDisScorer extends AbstractScorer {
 	public static final Scorer Instance = new MhtDisScorer();
 
 	private MhtDisScorer() {
