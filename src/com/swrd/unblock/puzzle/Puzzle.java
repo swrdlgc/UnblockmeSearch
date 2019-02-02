@@ -159,6 +159,12 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 			for (Block b : blocks) {
 				s += b.score();
 			}
+//			if(step != null) {
+//				s += step.getOffset();
+//			}
+//			if(father != null) {
+//				s += father.score;
+//			}
 			score = s;
 		}
 		return score;
@@ -232,17 +238,19 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	
 	@Override
 	public int compareTo(Puzzle o) {
+		int rv;
 		if(score() > o.score()) {
-			return 1;
+			rv = 1;
 		} else if(score() < o.score()) {
-			return -1;
+			rv = -1;
 		} else {
 			int cl = o.getLevel() - getLevel();
 			if(cl != 0) {
-				return cl;
+				rv = cl;
+			} else {
+				rv = getStep().getOffset() - o.getStep().getOffset();
 			}
-			int of = getStep().getOffset() - o.getStep().getOffset();
-			return of;
 		}
+		return -rv;
 	}
 }

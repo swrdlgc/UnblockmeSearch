@@ -13,7 +13,7 @@ public class IAstarGroupSolver extends AbstractGroupSolver {
 
 	@Override
 	public Solver getSolver(Puzzle puzzle) {
-		return new DfsSolver(puzzle, name, SolverType.IAstar);
+		return new AstarSolver(puzzle, name, SolverType.IAstar);
 	}
 
 }

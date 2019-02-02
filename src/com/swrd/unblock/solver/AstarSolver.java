@@ -12,10 +12,14 @@ public class AstarSolver extends AbstractSolver {
 	private Queue<Puzzle> pq = new PriorityQueue<Puzzle>();
 	
 	public AstarSolver(Puzzle puzzle, String name) {
-		super(name, SolverType.Astar);
-		putPuzzle(puzzle);
+		this(puzzle, name, SolverType.Astar);
 	}
 	
+	public AstarSolver(Puzzle puzzle, String name, SolverType type) {
+		super(name, type);
+		putPuzzle(puzzle);
+	}
+
 	@Override
 	protected Puzzle getNextPuzzle() {
 		return pq.poll();

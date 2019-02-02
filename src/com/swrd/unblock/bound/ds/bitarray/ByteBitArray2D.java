@@ -2,8 +2,6 @@ package com.swrd.unblock.bound.ds.bitarray;
 
 import java.awt.Rectangle;
 
-import com.swrd.unblock.bound.Bound;
-
 public class ByteBitArray2D extends AbstractBitArray2D {
 	private final static byte ByteLength = 8;
 	private final static byte Shift = 3;
@@ -13,28 +11,11 @@ public class ByteBitArray2D extends AbstractBitArray2D {
 	public ByteBitArray2D(Rectangle bound) {
 		super(bound);
 		bitMap = new byte[bound.height][getSizeIndex(bound.width) + 1];
-		for(int i = 0; i < bitMap.length; ++i) {
-			for(int j = 0; j < bitMap[i].length; ++j) {
-				bitMap[i][j] = 0x00;
-			}
-		}
 	}
 
 	@Override
 	public boolean isFilled(int x, int y) {
 		return ((bitMap[y][getSizeIndex(x)]) & getSizeOffset(x)) > 0;
-	}
-
-	@Override
-	public boolean isMarked(Rectangle rect) {
-		for (int i = 0; i < rect.width; ++i) {
-			for (int j = 0; j < rect.height; ++j) {
-				if (isFilled(rect.x + i, rect.y + j)) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	@Override
@@ -45,19 +26,6 @@ public class ByteBitArray2D extends AbstractBitArray2D {
 			(bitMap[y][getSizeIndex(x)]) |= getSizeOffset(x);
 			return true;
 		}
-	}
-	
-	@Override
-	public boolean fill(Bound bound) {
-		Rectangle rect = bound.getBound();
-		for (int i = 0; i < rect.width; ++i) {
-			for (int j = 0; j < rect.height; ++j) {
-				if(!fill(rect.x + i, rect.y + j)) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
 	@Override
