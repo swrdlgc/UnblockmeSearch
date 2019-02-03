@@ -15,7 +15,7 @@ public class SolverUtils {
 	public static String printSolver(Solver solver, boolean printSteps) {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("==========================================================================\n");
+		sb.append("==============================================\n");
 		sb.append(String.format("Name: %s\n", solver.getName()));
 		sb.append(String.format("Solved: %s\n", solver.isSolved()));
 		sb.append(String.format("RunTime: %d\n", solver.getRunTime()));

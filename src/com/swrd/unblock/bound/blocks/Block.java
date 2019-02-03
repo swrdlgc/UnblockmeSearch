@@ -3,29 +3,18 @@ package com.swrd.unblock.bound.blocks;
 import java.awt.Rectangle;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 
 import com.swrd.unblock.bound.Bound;
 import com.swrd.unblock.bound.blocks.score.ScorerFactory;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.ems.BlockType;
 import com.swrd.unblock.ems.Direction;
+import com.swrd.unblock.ui.ColorUtils;
 
 public abstract class Block implements Bound, Comparable<Block> {
 	public static AtomicInteger idi = new AtomicInteger(0);
-	public static Color YellowColor;
-	public static Color RedColor;
 
-	static {
-		try {
-			YellowColor = Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW);
-			RedColor = Display.getCurrent().getSystemColor(SWT.COLOR_RED);
-		} catch (Exception e) {
-		}
-	}
-	
 	protected int id;
 	private double score = -1;
 	protected BlockType type;
@@ -51,9 +40,9 @@ public abstract class Block implements Bound, Comparable<Block> {
 		this.dest = dest;
 		this.type = type;
 		if(dest == null) {
-			this.color = YellowColor;
+			this.color = ColorUtils.Yellow;
 		} else {
-			this.color = RedColor;
+			this.color = ColorUtils.Red;
 		}
 		this.id = id;
 		initType();

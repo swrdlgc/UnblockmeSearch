@@ -4,8 +4,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -39,26 +37,23 @@ import de.kupzog.ktable.KTable;
 import de.kupzog.ktable.KTableCellSelectionAdapter;
 
 public class BlockGame {
-	public static Color White;
 	
 	public static void main(String[] args) {
 		// create a shell...
 		Display display = new Display();
-		shell = new Shell(display);
+		Shell shell = new Shell(display);
 		shell.setText("Block games");
 		
-		White = display.getSystemColor(SWT.COLOR_WHITE);
-		shell.setBackground(White);
+		shell.setBackground(ColorUtils.White);
 		shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		shell.setLayout(new GridLayout(2, false));
 		
-		createGameTable(shell);
-		createControlPanel(shell);
+		new BlockGame(shell);
 	
 		// display the shell...
 		shell.setSize(800, 600);
 		shell.open();
-		setCenter(shell);
+		SWTUtils.setCenter(shell);
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())
 				display.sleep();
@@ -66,25 +61,18 @@ public class BlockGame {
 		display.dispose();
 	}
 	
-	 /*
-     * Set the shell on the center of the screen
-     * 
-     * @param shell the shell which needs setCentered
-     */
-    public static void setCenter(Shell shell) {
-        Rectangle rtg = shell.getMonitor().getClientArea();
-        shell.setLocation((rtg.width - shell.getSize().x) / 2, (rtg.height - shell.getSize().y) / 2);
-    }
-    
-    static Shell shell;
-    static Puzzle puzzle;
-    static KTable table;
-    static BlockGameModel model;
-    static Solver solver;
-    static Text text;
-    
-	private static void createGameTable(Shell shell) {
-		Composite child = new Composite(shell, SWT.NONE);
+	Composite parent;
+	public BlockGame(Composite parent) {
+		this.parent = parent;
+		createGameTable(parent);
+		createControlPanel(parent);
+	}
+	
+    Puzzle puzzle;
+    KTable table;
+    BlockGameModel model;
+	private void createGameTable(Composite parent) {
+		Composite child = new Composite(parent, SWT.NONE);
 		GridData gd = new GridData(400, 400);
 		gd.grabExcessVerticalSpace = true;
 		gd.verticalAlignment = SWT.FILL;
@@ -92,9 +80,9 @@ public class BlockGame {
 		child.setLayout(new FillLayout());
 		
 		table = new KTable(child, SWT.DOUBLE_BUFFERED);
-		table.setColorLeftBorder(White);
-        //table.setColorRightBorder(White);
-        table.setColorTopBorder(White);
+		table.setColorLeftBorder(ColorUtils.White);
+        //table.setColorRightBorder(ColorUtils.White);
+        table.setColorTopBorder(ColorUtils.White);
 		puzzle = UnBlockMeMain.getPuzzle();
 		puzzle.setCellWidth(50);
 		model = new BlockGameModel(puzzle);
@@ -108,10 +96,56 @@ public class BlockGame {
 		});
 	}
 	
-	private static void createControlPanel(Shell shell) {
-		Composite child = new Composite(shell,SWT.NONE);
+	Composite compSolve;
+	Composite compEdit;
+	Composite compSearch;
+	private void createControlPanel(Composite parent) {
+		Composite child = new Composite(parent,SWT.NONE);
 		child.setLayoutData(new GridData(GridData.FILL_BOTH));
 		child.setLayout(new GridLayout(2, false));
+		
+		new Label(child, SWT.NONE).setText("Mode: ");
+		Composite comp = new Composite(child, SWT.NONE);
+		comp.setLayout(new GridLayout(3, true));
+		Button btSolve = new Button(comp, SWT.RADIO);
+		btSolve.setText("Solve");
+		btSolve.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				SWTUtils.setVisible(compEdit, false, false);
+				SWTUtils.setVisible(compSearch, false, false);
+				SWTUtils.setVisible(compSolve, true, true);
+				
+				table.setEnabled(true);
+			}
+		});
+		
+		Button btEdit = new Button(comp, SWT.RADIO);
+		btEdit.setText("Edit");
+		btEdit.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				SWTUtils.setVisible(compSearch, false, false);
+				SWTUtils.setVisible(compSolve, false, false);
+				SWTUtils.setVisible(compEdit, true, true);
+				
+				table.setEnabled(true);
+			}
+		});
+		
+		Button btSearch = new Button(comp, SWT.RADIO);
+		btSearch.setText("Search");
+		btSearch.setSelection(true);
+		btSearch.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				SWTUtils.setVisible(compEdit, false, false);
+				SWTUtils.setVisible(compSolve, false, false);
+				SWTUtils.setVisible(compSearch, true, true);
+				
+				table.setEnabled(false);
+			}
+		});
 		
 		new Label(child, SWT.NONE).setText("Game: ");
 		Combo cboGame = new Combo(child, SWT.READ_ONLY);
@@ -137,10 +171,55 @@ public class BlockGame {
 				table.setModel(model);
 				table.redraw();
 				table.update();
-				text.setText("");
+				txtSolver.setText("");
 			}
 		});
 		
+		Label lbl = new Label(child, SWT.HORIZONTAL | SWT.SEPARATOR);
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 2;
+		gd.heightHint = 30;
+		lbl.setLayoutData(gd);
+		
+		compSolve = createComp(child);
+		compEdit = createComp(child);
+		compSearch = createComp(child);
+		
+		createSolvePanel(compSolve);
+		createEditPanel(compEdit);
+		createSearchPanel(compSearch);
+		
+		SWTUtils.setVisible(compEdit, false, false);
+		SWTUtils.setVisible(compSolve, false, false);
+		SWTUtils.setVisible(compSearch, true, true);
+		table.setEnabled(false);
+	}
+	
+	
+	private Composite createComp(Composite child) {
+		Composite comp = new Composite(child, SWT.NONE);
+		
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd.horizontalSpan = 2;
+		comp.setLayoutData(gd);
+		GridLayout gl = new GridLayout(2, false);
+		gl.marginWidth = 0;
+		comp.setLayout(gl);
+		
+		return comp;
+	}
+	
+	private void createSolvePanel(Composite child) {
+		new Label(child, SWT.NONE).setText("//TODO: solve panel");
+	}
+	
+	private void createEditPanel(Composite child) {
+		new Label(child, SWT.NONE).setText("//TODO: edit panel");
+	}
+	
+    Text txtSolver;
+    Solver solver;
+	private void createSearchPanel(Composite child) {
 		new Label(child, SWT.NONE).setText("Algo: ");
 		Combo cboAlgo = new Combo(child, SWT.READ_ONLY);
 		cboAlgo.add("DFS");
@@ -153,7 +232,7 @@ public class BlockGame {
 		cboAlgo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				text.setText("");
+				txtSolver.setText("");
 			}
 		});
 		
@@ -182,7 +261,7 @@ public class BlockGame {
 		btSlove.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				shell.setEnabled(false);
+				parent.setEnabled(false);
 				String algo = cboAlgo.getText();
 				if(algo.equals("BFS")) {
 					solver = new BfsSolver(puzzle, algo);
@@ -197,11 +276,11 @@ public class BlockGame {
 				}
 				solver.search();
 				if (solver.isSolved()) {
-					text.setText(SolverUtils.printSolver(solver, false)+"\n");
+					txtSolver.setText(SolverUtils.printSolver(solver, false)+"\n");
 				} else {
 					MessageDialog.openWarning(null, "Info", "Puzzle not solved!");
 				}
-				shell.setEnabled(true);
+				parent.setEnabled(true);
 			}
 		});
 		
@@ -214,7 +293,7 @@ public class BlockGame {
 					MessageDialog.openWarning(null, "Info", "Please solve puzzle first!");
 					return;
 				}
-				shell.setEnabled(false);
+				parent.setEnabled(false);
 				new Thread(new Runnable() {
 					int count = 1;
 					@Override
@@ -228,7 +307,7 @@ public class BlockGame {
 							Display.getDefault().asyncExec(new Runnable() {
 								@Override
 								public void run() {
-									text.append(String.format("\n%04d %s", count++, step));
+									txtSolver.append(String.format("\n%04d %s", count++, step));
 									table.redraw();
 									table.update();
 								}
@@ -239,7 +318,7 @@ public class BlockGame {
 							@Override
 							public void run() {
 								//MessageDialog.openInformation(null, "Info", "Puzzle solved!");
-								shell.setEnabled(true);
+								parent.setEnabled(true);
 							}
 						});
 					}
@@ -247,9 +326,9 @@ public class BlockGame {
 			}
 		});
 		
-		text = new Text(child, SWT.MULTI|SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.READ_ONLY);
+		txtSolver = new Text(child, SWT.MULTI|SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.READ_ONLY);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
-		text.setLayoutData(gd);
+		txtSolver.setLayoutData(gd);
 	}
 }
