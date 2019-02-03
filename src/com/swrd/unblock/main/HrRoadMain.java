@@ -29,6 +29,18 @@ public class HrRoadMain extends Main {
 		blocks.add(new HRBlock(new Rectangle(1, 3, 1, 1)));
 		blocks.add(new HRBlock(new Rectangle(2, 3, 2, 1)));
 		blocks.add(new HRBlock(new Rectangle(2, 4, 2, 1)));
+		
+		// pz2
+//		blocks.add(new HRBlock(new Rectangle(1, 0, 2, 2), HRBlock.HRDestination)); // king
+//		blocks.add(new HRBlock(new Rectangle(0, 0, 1, 2)));
+//		blocks.add(new HRBlock(new Rectangle(3, 0, 1, 2)));
+//		blocks.add(new HRBlock(new Rectangle(0, 2, 1, 2)));
+//		blocks.add(new HRBlock(new Rectangle(3, 2, 1, 2)));
+//		blocks.add(new HRBlock(new Rectangle(1, 2, 2, 1)));
+//		blocks.add(new HRBlock(new Rectangle(0, 4, 1, 1)));
+//		blocks.add(new HRBlock(new Rectangle(1, 4, 1, 1)));
+//		blocks.add(new HRBlock(new Rectangle(2, 4, 1, 1)));
+//		blocks.add(new HRBlock(new Rectangle(3, 4, 1, 1)));
 
 		Puzzle p = new Puzzle("HR-1", PuzzleType.HRRoad, new Rectangle(HRBlock.HRWidth, HRBlock.HRHeight), blocks);
 		p.setExit(new Rectangle(1, 5, 2, 1));
