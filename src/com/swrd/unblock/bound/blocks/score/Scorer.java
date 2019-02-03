@@ -5,8 +5,6 @@ import java.awt.Rectangle;
 import com.swrd.unblock.puzzle.Puzzle;
 
 public interface Scorer {
-	Scorer scorer = UnionAreaScorer.Instance;
-
 	/**
 	 * return a score[0, 1], the higher the better
 	 * 

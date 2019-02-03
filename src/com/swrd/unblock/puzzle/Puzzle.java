@@ -10,7 +10,7 @@ import org.eclipse.swt.graphics.Point;
 
 import com.swrd.unblock.bound.Bound;
 import com.swrd.unblock.bound.blocks.Block;
-import com.swrd.unblock.bound.blocks.score.Scorer;
+import com.swrd.unblock.bound.blocks.score.ScorerFactory;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.bound.ds.bitarray.ByteBitArray2D;
 import com.swrd.unblock.ems.Direction;
@@ -157,7 +157,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	
 	public double score() {
 		if(score == -1) {
-			score = Scorer.scorer.score(this);
+			score = ScorerFactory.scorer.score(this);
 		}
 		return score;
 	}

@@ -18,6 +18,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.swrd.unblock.bound.blocks.Block;
+import com.swrd.unblock.bound.blocks.score.LevelScorer;
+import com.swrd.unblock.bound.blocks.score.MhtDisScorer;
+import com.swrd.unblock.bound.blocks.score.ScorerFactory;
+import com.swrd.unblock.bound.blocks.score.UnionAreaScorer;
 import com.swrd.unblock.main.HrRoadMain;
 import com.swrd.unblock.main.P9Main;
 import com.swrd.unblock.main.UnBlockMeMain;
@@ -150,6 +154,26 @@ public class BlockGame {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				text.setText("");
+			}
+		});
+		
+		new Label(child, SWT.NONE).setText("Scorer: ");
+		Combo cboScorer = new Combo(child, SWT.READ_ONLY);
+		cboScorer.add("UnionArea+");
+		cboScorer.add("ManhattanDistance-");
+		cboScorer.add("Step-");
+		cboScorer.select(0);
+		cboScorer.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				int idx = cboScorer.getSelectionIndex();
+				if(idx == 1) {
+					ScorerFactory.scorer = MhtDisScorer.Instance;
+				} else if(idx == 2) {
+					ScorerFactory.scorer = LevelScorer.Instance;
+				} else {
+					ScorerFactory.scorer = UnionAreaScorer.Instance;
+				}
 			}
 		});
 		

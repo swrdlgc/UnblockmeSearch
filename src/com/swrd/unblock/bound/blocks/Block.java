@@ -8,7 +8,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 
 import com.swrd.unblock.bound.Bound;
-import com.swrd.unblock.bound.blocks.score.Scorer;
+import com.swrd.unblock.bound.blocks.score.ScorerFactory;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.ems.BlockType;
 import com.swrd.unblock.ems.Direction;
@@ -77,7 +77,7 @@ public abstract class Block implements Bound, Comparable<Block> {
 	public double score() {
 		if (dest != null) {
 			if (score == -1) {
-				score = Scorer.scorer.score(cell, dest);
+				score = ScorerFactory.scorer.score(cell, dest);
 			}
 			return score;
 		} 
