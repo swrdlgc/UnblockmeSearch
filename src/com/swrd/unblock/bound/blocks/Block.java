@@ -26,7 +26,7 @@ public abstract class Block implements Bound, Comparable<Block> {
 		}
 	}
 	
-	private int id;
+	protected int id;
 	private double score = -1;
 	protected BlockType type;
 	protected Rectangle cell;
@@ -277,30 +277,6 @@ public abstract class Block implements Bound, Comparable<Block> {
 	
 	@Override
 	public int compareTo(Block o) {
-//		int a = getArea();
-//		int oa = o.getArea();
-//		if(a != oa) {
-//			return a - oa;
-//		}
-		
-		int w = cell.width;
-		int ow = o.cell.width;
-		if(w != ow) {
-			return w - ow;
-		}
-		
-		int x = cell.x;
-		int ox = o.cell.x;
-		if(x != ox) {
-			return x - ox;
-		}
-		
-		int y = cell.y;
-		int oy = o.cell.y;
-		if(y != oy) {
-			return y - oy;
-		}
-		
-		return 0;
+		return id - o.id;
 	}
 }

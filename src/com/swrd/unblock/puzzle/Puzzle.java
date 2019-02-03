@@ -29,8 +29,9 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	private BitArray2D status;
 	
 	private double score = -1;
-	
+
 	private Rectangle Exit;
+	private int cellWidth = 80;
 
 	public Puzzle(String name, PuzzleType type, Rectangle bound, List<Block> blocks) {
 		this(name, type, bound, blocks, null, null);
@@ -45,9 +46,10 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		this.father = father;
 		this.step = step;
 
-//		if(type == PuzzleType.HRRoad) {
-			Collections.sort(blocks);
-//		}
+		if(type == PuzzleType.HRRoad) {
+			// 对于华容道来说，长宽一样的方块等价，可减少状态空间
+			Collections.sort(blocks); 
+		}
 		if(!calcStatus()) {
 			System.err.println("calc status error");
 		}
@@ -226,6 +228,14 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		return Exit;
 	}
 	
+	public int getCellWidth() {
+		return cellWidth;
+	}
+
+	public void setCellWidth(int cellWidth) {
+		this.cellWidth = cellWidth;
+	}
+
 	@Override
 	public int compareTo(Puzzle o) {
 		int rv;

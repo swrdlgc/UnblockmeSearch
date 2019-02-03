@@ -9,8 +9,6 @@ import de.kupzog.ktable.KTableCellRenderer;
 import de.kupzog.ktable.KTableDefaultModel;
 
 public class BlockGameModel extends KTableDefaultModel {
-	private final int CELL_WIDTH = 50;
-	
 	private Puzzle puzzle;
 	private KTableCellRenderer render;
 	
@@ -44,15 +42,15 @@ public class BlockGameModel extends KTableDefaultModel {
 	}
 
 	public int getRowHeightMinimum() {
-		return CELL_WIDTH;
+		return puzzle.getCellWidth();
 	}
 
 	public int getInitialColumnWidth(int column) {
-		return CELL_WIDTH;
+		return puzzle.getCellWidth();
 	}
 
 	public int getInitialRowHeight(int row) {
-		return CELL_WIDTH;
+		return puzzle.getCellWidth();
 	}
 
 	public Object doGetContentAt(int col, int row) {

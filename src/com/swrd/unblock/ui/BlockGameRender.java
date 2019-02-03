@@ -13,7 +13,7 @@ import de.kupzog.ktable.KTableCellRenderer;
 import de.kupzog.ktable.KTableModel;
 
 public class BlockGameRender implements KTableCellRenderer {
-	public static Color WhiteColor = Display.getCurrent().getSystemColor(SWT.COLOR_WHITE);
+	public static Color GreenColor = Display.getCurrent().getSystemColor(SWT.COLOR_GREEN);
 	public static Color BlackColor = Display.getCurrent().getSystemColor(SWT.COLOR_BLACK);
 	
 	private Puzzle puzzle;
@@ -35,7 +35,7 @@ public class BlockGameRender implements KTableCellRenderer {
 
 		if (exit != null) {
 			if (exit.contains(col, row)) {
-				gc.setBackground(WhiteColor);
+				gc.setBackground(GreenColor);
 				gc.fillRectangle(getSmallerRect(rect, -1));
 				gc.setForeground(BlackColor);
 				//gc.drawText("出口", rect.x, rect.y);
