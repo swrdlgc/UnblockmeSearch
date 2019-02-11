@@ -45,7 +45,7 @@ public class BlockGameRender implements KTableCellRenderer {
 		Block block = puzzle.getBlock(col, row);
 		if(block != null) {
 			Color color = block.getColor();
-			String label = block.getLabel();
+			String label = block.getLabel()+"";
 			if(color != null) {
 				gc.setBackground(color);
 				gc.fillRectangle(getSmallerRect(rect, 5));

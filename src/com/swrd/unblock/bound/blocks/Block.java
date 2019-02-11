@@ -22,20 +22,25 @@ public abstract class Block implements Bound, Comparable<Block> {
 	protected Rectangle dest;
 	protected Color color;
 	protected boolean selected;
+	protected char label;
 
 	public Block(Rectangle cell) {
-		this(cell, null);
-	}
-
-	public Block(Rectangle cell, Rectangle dest) {
-		this(cell, dest, BlockType.BOTH, idi.incrementAndGet());
+		this(cell, null, (char) 0);
 	}
 	
-	public Block(Rectangle cell, Rectangle dest, int id) {
-		this(cell, dest, BlockType.BOTH, id);
+	public Block(Rectangle cell, char label) {
+		this(cell, null, label);
 	}
 
-	public Block(Rectangle cell, Rectangle dest, BlockType type, int id) {
+	public Block(Rectangle cell, Rectangle dest, char label) {
+		this(cell, dest, BlockType.BOTH, idi.incrementAndGet(), label);
+	}
+	
+	public Block(Rectangle cell, Rectangle dest, int id, char label) {
+		this(cell, dest, BlockType.BOTH, id, label);
+	}
+
+	public Block(Rectangle cell, Rectangle dest, BlockType type, int id, char label) {
 		this.cell = cell;
 		this.dest = dest;
 		this.type = type;
@@ -45,6 +50,7 @@ public abstract class Block implements Bound, Comparable<Block> {
 			this.color = ColorUtils.Red;
 		}
 		this.id = id;
+		this.label = label;
 		initType();
 	}
 	
@@ -54,10 +60,6 @@ public abstract class Block implements Bound, Comparable<Block> {
 
 	}
 	
-	public String getLabel() {
-		return null;
-	}
-
 	/**
 	 * return a score[0, 1], the higher the better
 	 * 
@@ -252,6 +254,14 @@ public abstract class Block implements Bound, Comparable<Block> {
 		this.selected = selected;
 	}
 	
+	public char getLabel() {
+		return label;
+	}
+	
+	public void setLabel(char label) {
+		this.label = label;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Block) {

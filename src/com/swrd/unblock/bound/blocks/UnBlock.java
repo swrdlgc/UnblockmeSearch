@@ -19,17 +19,21 @@ public class UnBlock extends Block {
 	public UnBlock(Rectangle cell) {
 		super(cell);
 	}
+	
+	public UnBlock(Rectangle cell, char label) {
+		super(cell, label);
+	}
 
-	public UnBlock(Rectangle cell, Rectangle dest) {
-		super(cell, dest);
+	public UnBlock(Rectangle cell, Rectangle dest, char label) {
+		super(cell, dest, label);
 	}
 	
-	public UnBlock(Rectangle cell, Rectangle dest, int id) {
-		super(cell, dest, id);
+	public UnBlock(Rectangle cell, Rectangle dest, int id, char label) {
+		super(cell, dest, id, label);
 	}
 
 	public Block copy() {
-		return new UnBlock(RectangleUtils.CopyRectangle(cell), dest, getId());
+		return new UnBlock(RectangleUtils.CopyRectangle(cell), dest, getId(), getLabel());
 	}
 
 	@Override

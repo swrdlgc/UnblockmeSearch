@@ -44,11 +44,11 @@ public class Step {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("step: %4d[%s]->{%10s %d}", 
-				block.getId(),
+		sb.append(String.format("step: %c[%s]->{%10s %d}", 
+				block.getLabel(), 
 				RectangleUtils.EncodeRectangle(block.getCell()),
 				direct, offset));
-		sb.append(String.format(" = %4d[%s]", block.getId(),
+		sb.append(String.format(" = [%s]",
 				RectangleUtils.EncodeRectangle(block.getCell())));
 		
 		return sb.toString();

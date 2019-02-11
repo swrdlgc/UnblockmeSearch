@@ -24,25 +24,19 @@ public class P9Block extends Block {
 			new Rectangle(2, 0, 1, 1), new Rectangle(2, 1, 1, 1)
 			};
 	
-	private int label;
 	public P9Block(Rectangle cell, int i) {
-		super(cell, P9BlockDestinationVer[i]);
-		this.label = i;
+		super(cell, P9BlockDestinationVer[i], (char)i);
 	}
 
-	public P9Block(Rectangle cell, Rectangle dest) {
-		super(cell, dest);
+	public P9Block(Rectangle cell, Rectangle dest, char label) {
+		super(cell, dest, label);
 	}
 	
-	public P9Block(Rectangle cell, Rectangle dest, int id) {
-		super(cell, dest, id);
+	public P9Block(Rectangle cell, Rectangle dest, int id, char label) {
+		super(cell, dest, id, label);
 	}
 
 	public Block copy() {
-		return new P9Block(RectangleUtils.CopyRectangle(cell), dest, getId());
-	}
-	
-	public String getLabel() {
-		return label+"";
+		return new P9Block(RectangleUtils.CopyRectangle(cell), dest, getId(), getLabel());
 	}
 }
