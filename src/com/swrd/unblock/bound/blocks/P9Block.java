@@ -25,7 +25,7 @@ public class P9Block extends Block {
 			};
 	
 	public P9Block(Rectangle cell, int i) {
-		super(cell, P9BlockDestinationVer[i], (char)i);
+		super(cell, P9BlockDestinationVer[i], (char)('0'+i));
 	}
 
 	public P9Block(Rectangle cell, Rectangle dest, char label) {

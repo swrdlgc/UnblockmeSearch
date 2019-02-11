@@ -253,4 +253,40 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		}
 		return -rv;
 	}
+	
+	@Override
+	public String toString() {
+		int h = (int)bound.getHeight();
+		int w = (int)bound.getWidth();
+		char[][] arrs = new char[h][w];
+		for(int i = 0; i < h; ++i) {
+			for(int j = 0; j < w; ++j) {
+				arrs[i][j] = '-';
+			}
+		}
+		for(Block b : blocks) {
+			Rectangle r = b.getCell();
+			for(int i = 0; i < r.width; ++i) {
+				int x = i + r.x;
+				for(int j = 0; j < r.height; ++j) {
+					arrs[j + r.y][x] = b.getLabel();
+				}
+			}
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(blocks.size());
+		for(char[] arr : arrs) {
+			sb.append("\n");
+			for(int i = 0; i < arr.length; ++i) {
+				if (i != 0) {
+					sb.append(' ');
+				}
+				sb.append(arr[i]);
+			}
+		}
+		
+		return sb.toString();
+	}
 }
