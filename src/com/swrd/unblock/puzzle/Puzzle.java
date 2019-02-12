@@ -19,9 +19,9 @@ import com.swrd.unblock.puzzle.step.Step;
 import com.swrd.unblock.utils.RectangleUtils;
 
 public class Puzzle implements Bound, Comparable<Puzzle> {
-	private String name;
-	private PuzzleType type;
-	private Rectangle bound;
+	private final String name;
+	private final PuzzleType type;
+	private final Rectangle bound;
 	private List<Block> blocks;
 
 	private Puzzle father;
@@ -53,6 +53,12 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		if(!calcStatus()) {
 			System.err.println("calc status error");
 		}
+	}
+	
+	public Puzzle copy() {
+		Puzzle p = new Puzzle(name, type, bound, copyBlocks(), null, null);
+		p.setExit(Exit);
+		return p;
 	}
 
 	private boolean calcStatus() {
@@ -114,10 +120,6 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override
