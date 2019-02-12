@@ -38,7 +38,7 @@ public class P9Main extends Main {
 		blocks.add(new P9Block(new Rectangle(2, 0, 1, 1), 7));
 		blocks.add(new P9Block(new Rectangle(2, 1, 1, 1), 3));
 		
-		Puzzle p = new Puzzle("P9-1", PuzzleType.P9, new Rectangle(P9Block.P9Width, P9Block.P9Height), blocks);
+		Puzzle p = new Puzzle("P9-1", PuzzleType.P9, new Rectangle(P9Block.Width, P9Block.Height), blocks);
 
 		return p;
 	}

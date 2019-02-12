@@ -19,7 +19,7 @@ public class HrRoadMain extends Main {
 		List<Block> blocks = new ArrayList<Block>();
 
 		// pz1
-		blocks.add(new HRBlock(new Rectangle(1, 0, 2, 2), HRBlock.HRDestination, 'X')); // king
+		blocks.add(new HRBlock(new Rectangle(1, 0, 2, 2), HRBlock.Destination, 'X')); // king
 		blocks.add(new HRBlock(new Rectangle(3, 0, 1, 1), 'a'));
 		blocks.add(new HRBlock(new Rectangle(0, 1, 1, 2), 'b'));
 		blocks.add(new HRBlock(new Rectangle(3, 1, 1, 1), 'c'));
@@ -31,7 +31,7 @@ public class HrRoadMain extends Main {
 		blocks.add(new HRBlock(new Rectangle(2, 4, 2, 1), 'i'));
 		
 		// pz2
-//		blocks.add(new HRBlock(new Rectangle(1, 0, 2, 2), HRBlock.HRDestination, 'X')); // king
+//		blocks.add(new HRBlock(new Rectangle(1, 0, 2, 2), HRBlock.Destination, 'X')); // king
 //		blocks.add(new HRBlock(new Rectangle(0, 0, 1, 2), 'a'));
 //		blocks.add(new HRBlock(new Rectangle(3, 0, 1, 2), 'b'));
 //		blocks.add(new HRBlock(new Rectangle(0, 2, 1, 2), 'c'));
@@ -42,7 +42,7 @@ public class HrRoadMain extends Main {
 //		blocks.add(new HRBlock(new Rectangle(2, 4, 1, 1), 'h'));
 //		blocks.add(new HRBlock(new Rectangle(3, 4, 1, 1), 'i'));
 
-		Puzzle p = new Puzzle("HR-1", PuzzleType.HRRoad, new Rectangle(HRBlock.HRWidth, HRBlock.HRHeight), blocks);
+		Puzzle p = new Puzzle("HR-1", PuzzleType.HRRoad, new Rectangle(HRBlock.Width, HRBlock.Height), blocks);
 		p.setExit(new Rectangle(1, 5, 2, 1));
 
 		return p;

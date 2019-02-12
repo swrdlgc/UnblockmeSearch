@@ -20,7 +20,7 @@ public class UnBlockMeMain extends Main {
 
 		// pz1
 //		blocks.add(new UnBlock(new Rectangle(2, 0, 1, 3), 'a'));
-//		blocks.add(new UnBlock(new Rectangle(0, 2, 2, 1), UnBlock.UnBlockMeDestination, 'X')); // king
+//		blocks.add(new UnBlock(new Rectangle(0, 2, 2, 1), UnBlock.Destination, 'X')); // king
 		
 		// pz2
 		blocks.add(new UnBlock(new Rectangle(0, 0, 2, 1), 'a'));
@@ -28,7 +28,7 @@ public class UnBlockMeMain extends Main {
 		blocks.add(new UnBlock(new Rectangle(3, 0, 2, 1), 'c'));
 		blocks.add(new UnBlock(new Rectangle(5, 0, 1, 3), 'd'));
 		blocks.add(new UnBlock(new Rectangle(0, 1, 1, 2), 'e'));
-		blocks.add(new UnBlock(new Rectangle(1, 2, 2, 1), UnBlock.UnBlockMeDestination, 'X'));
+		blocks.add(new UnBlock(new Rectangle(1, 2, 2, 1), UnBlock.Destination, 'X'));
 		blocks.add(new UnBlock(new Rectangle(4, 1, 1, 2), 'f'));
 		blocks.add(new UnBlock(new Rectangle(0, 3, 1, 2), 'g'));
 		blocks.add(new UnBlock(new Rectangle(1, 3, 1, 2), 'h'));
@@ -44,7 +44,7 @@ public class UnBlockMeMain extends Main {
 //		blocks.add(new UnBlock(new Rectangle(3, 0, 1, 2), 'c'));
 //		blocks.add(new UnBlock(new Rectangle(5, 0, 1, 3), 'd'));
 //		blocks.add(new UnBlock(new Rectangle(1, 1, 1, 2), 'e'));
-//		blocks.add(new UnBlock(new Rectangle(2, 2, 2, 1), UnBlock.UnBlockMeDestination, 'X'));
+//		blocks.add(new UnBlock(new Rectangle(2, 2, 2, 1), UnBlock.Destination, 'X'));
 //		blocks.add(new UnBlock(new Rectangle(4, 1, 1, 3), 'f'));
 //		blocks.add(new UnBlock(new Rectangle(0, 3, 2, 1), 'g'));
 //		blocks.add(new UnBlock(new Rectangle(2, 3, 1, 2), 'h'));
@@ -53,7 +53,7 @@ public class UnBlockMeMain extends Main {
 //		blocks.add(new UnBlock(new Rectangle(1, 5, 2, 1), 'k'));
 //		blocks.add(new UnBlock(new Rectangle(3, 5, 2, 1), 'l'));
 
-		Puzzle p = new Puzzle("UB-1", PuzzleType.UnBlockMe, new Rectangle(UnBlock.UnBlockMeWidth, UnBlock.UnBlockMeHeight), blocks);
+		Puzzle p = new Puzzle("UB-1", PuzzleType.UnBlockMe, new Rectangle(UnBlock.Width, UnBlock.Height), blocks);
 		p.setExit(new Rectangle(6, 2, 1, 1));
 
 		return p;
