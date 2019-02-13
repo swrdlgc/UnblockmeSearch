@@ -2,6 +2,8 @@ package com.swrd.unblock.puzzle;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,17 @@ import com.swrd.unblock.ems.PuzzleType;
 
 public class PuzzleFactory {
 	private static Map<PuzzleType, List<Puzzle>> map = new HashMap<>();
+	private static Comparator<Puzzle> cmp = new Comparator<Puzzle>() {
+		@Override
+		public int compare(Puzzle o1, Puzzle o2) {
+			try {
+				return o1.getName().compareTo(o2.getName());
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
+		}
+	};
 	
 	public static List<Puzzle> getList(PuzzleType type) {
 		return map.get(type);
@@ -36,5 +49,6 @@ public class PuzzleFactory {
 				}
 			}
 		}
+		Collections.sort(list, cmp);
 	}
 }
