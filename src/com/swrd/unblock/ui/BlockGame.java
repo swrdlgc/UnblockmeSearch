@@ -32,6 +32,8 @@ import com.swrd.unblock.solver.DfsGroupSolver;
 import com.swrd.unblock.solver.DfsSolver;
 import com.swrd.unblock.solver.IAstarGroupSolver;
 import com.swrd.unblock.solver.api.Solver;
+import com.swrd.unblock.utils.ColorUtils;
+import com.swrd.unblock.utils.SWTUtils;
 import com.swrd.unblock.utils.SolverUtils;
 
 import de.kupzog.ktable.KTable;
@@ -114,6 +116,31 @@ public class BlockGame {
 	Composite compEdit;
 	Composite compSearch;
 	Combo cboGame;
+	Combo cboPuzzle;
+	Text txtPuzzle;
+	Button btReset;
+	private void puzzleChanged() {
+    	puzzle = ((Puzzle) cboPuzzle.getData(cboPuzzle.getText())).copy();
+		redrawTable();
+    }
+    private void initComboPuzzle() {
+    	int idx = cboGame.getSelectionIndex();
+    	List<Puzzle> puzzles;
+		if(idx == 1) {
+			puzzles = PuzzleFactory.getList(PuzzleType.HRRoad);
+		} else if(idx == 2) {
+			puzzles = PuzzleFactory.getList(PuzzleType.P9);
+		} else {
+			puzzles = PuzzleFactory.getList(PuzzleType.UnBlockMe);
+		}
+		cboPuzzle.removeAll();
+		for(Puzzle p : puzzles) {
+			cboPuzzle.add(p.getName());
+			cboPuzzle.setData(p.getName(), p);
+		}
+		cboPuzzle.select(0);
+		puzzleChanged();
+    }
 	private void createControlPanel(Composite parent) {
 		Composite child = new Composite(parent,SWT.NONE);
 		child.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -127,6 +154,11 @@ public class BlockGame {
 		btSolve.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				SWTUtils.setVisible(cboPuzzle, true, false);
+				SWTUtils.setVisible(txtPuzzle, false, false);
+				
+				btReset.setText("Reset");
+				
 				SWTUtils.setVisible(compEdit, false, false);
 				SWTUtils.setVisible(compSearch, false, false);
 				SWTUtils.setVisible(compSolve, true, true);
@@ -135,11 +167,16 @@ public class BlockGame {
 			}
 		});
 		
-		Button btEdit = new Button(comp, SWT.RADIO);
+		final Button btEdit = new Button(comp, SWT.RADIO);
 		btEdit.setText("Edit");
 		btEdit.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				SWTUtils.setVisible(cboPuzzle, false, false);
+				SWTUtils.setVisible(txtPuzzle, true, false);
+				
+				btReset.setText("Save");
+				
 				SWTUtils.setVisible(compSearch, false, false);
 				SWTUtils.setVisible(compSolve, false, false);
 				SWTUtils.setVisible(compEdit, true, true);
@@ -154,6 +191,11 @@ public class BlockGame {
 		btSearch.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				SWTUtils.setVisible(cboPuzzle, true, false);
+				SWTUtils.setVisible(txtPuzzle, false, false);
+				
+				btReset.setText("Reset");
+				
 				SWTUtils.setVisible(compEdit, false, false);
 				SWTUtils.setVisible(compSolve, false, false);
 				SWTUtils.setVisible(compSearch, true, true);
@@ -175,6 +217,34 @@ public class BlockGame {
 			}
 		});
 		
+		new Label(child, SWT.NONE).setText("Puzzle: ");
+		cboPuzzle = new Combo(child, SWT.READ_ONLY);
+		cboPuzzle.setLayoutData(new GridData());
+		cboPuzzle.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				puzzleChanged();
+			}
+		});
+		txtPuzzle = new Text(child, SWT.SINGLE|SWT.BORDER);
+		txtPuzzle.setMessage("Please input 'name-id.puzzle'");
+		txtPuzzle.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		SWTUtils.setVisible(txtPuzzle, false, false);
+		
+		new Label(child, SWT.NONE);
+		btReset = new Button(child, SWT.NONE);
+		btReset.setText("Reset");
+		btReset.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(btEdit.getSelection()) {
+					//TODO reset editor
+				} else {
+					puzzleChanged();
+				}
+			}
+		});
+		
 		Label lbl = new Label(child, SWT.HORIZONTAL | SWT.SEPARATOR);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
@@ -188,6 +258,8 @@ public class BlockGame {
 		createSolvePanel(compSolve);
 		createEditPanel(compEdit);
 		createSearchPanel(compSearch);
+		
+		initComboPuzzle();
 		
 		SWTUtils.setVisible(compEdit, false, false);
 		SWTUtils.setVisible(compSolve, false, false);
@@ -219,39 +291,7 @@ public class BlockGame {
 	
     Text txtSolver;
     Solver solver;
-    Combo cboPuzzle;
-    private void puzzleChanged() {
-    	puzzle = ((Puzzle) cboPuzzle.getData(cboPuzzle.getText())).copy();
-		redrawTable();
-    }
-    private void initComboPuzzle() {
-    	int idx = cboGame.getSelectionIndex();
-    	List<Puzzle> puzzles;
-		if(idx == 1) {
-			puzzles = PuzzleFactory.getList(PuzzleType.HRRoad);
-		} else if(idx == 2) {
-			puzzles = PuzzleFactory.getList(PuzzleType.P9);
-		} else {
-			puzzles = PuzzleFactory.getList(PuzzleType.UnBlockMe);
-		}
-		cboPuzzle.removeAll();
-		for(Puzzle p : puzzles) {
-			cboPuzzle.add(p.getName());
-			cboPuzzle.setData(p.getName(), p);
-		}
-		cboPuzzle.select(0);
-		puzzleChanged();
-    }
 	private void createSearchPanel(Composite child) {
-		new Label(child, SWT.NONE).setText("Puzzle: ");
-		cboPuzzle = new Combo(child, SWT.READ_ONLY);
-		cboPuzzle.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				puzzleChanged();
-			}
-		});
-		
 		new Label(child, SWT.NONE).setText("Algo: ");
 		Combo cboAlgo = new Combo(child, SWT.READ_ONLY);
 		cboAlgo.add("DFS");
@@ -362,7 +402,5 @@ public class BlockGame {
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		txtSolver.setLayoutData(gd);
-		
-		initComboPuzzle();
 	}
 }

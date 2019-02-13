@@ -20,13 +20,13 @@ public class P9Block extends Block {
 		};
 	public final static Rectangle DestinationHor[] = new Rectangle[] { 
 			new Rectangle(0, 0, 1, 1), new Rectangle(1, 0, 1, 1), new Rectangle(2, 0, 1, 1),
-			new Rectangle(1, 0, 1, 1), new Rectangle(1, 1, 1, 1), new Rectangle(2, 1, 1, 1),
-			new Rectangle(2, 0, 1, 1), new Rectangle(2, 1, 1, 1)
+			new Rectangle(0, 1, 1, 1), new Rectangle(1, 1, 1, 1), new Rectangle(2, 1, 1, 1),
+			new Rectangle(0, 2, 1, 1), new Rectangle(1, 2, 1, 1)
 			};
 	public final static Rectangle Bounds = new Rectangle(Width, Height);
 	
 	public P9Block(Rectangle cell, int i) {
-		super(cell, DestinationVer[i], (char)('0'+i));
+		super(cell, DestinationHor[i], (char)('0'+i));
 	}
 
 	public P9Block(Rectangle cell, Rectangle dest, char label) {

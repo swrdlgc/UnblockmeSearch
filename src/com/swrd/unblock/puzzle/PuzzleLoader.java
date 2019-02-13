@@ -74,9 +74,16 @@ public class PuzzleLoader {
 			Entry<Character, Rectangle> e = it2.next();
 			Block block;
 			
-			//TODO check
+			//check
+			Rectangle v = e.getValue();
+			if (v.height * v.width != map1.get(e.getKey()).size()) {
+				throw new Exception("block " + e.getKey() + " is invalid");
+			}
 			
 			if(arr.length == 7) {
+				if (v.height * v.width < 2) {
+					throw new Exception("block " + e.getKey() + " is invalid");
+				}
 				if(e.getKey() == 'X') {
 					block = new UnBlock(e.getValue(), UnBlock.Destination, e.getKey());
 				} else {

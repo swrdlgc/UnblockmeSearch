@@ -1,4 +1,4 @@
-package com.swrd.unblock.ui;
+package com.swrd.unblock.utils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;

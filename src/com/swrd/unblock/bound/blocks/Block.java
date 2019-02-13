@@ -10,7 +10,7 @@ import com.swrd.unblock.bound.blocks.score.ScorerFactory;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.ems.BlockType;
 import com.swrd.unblock.ems.Direction;
-import com.swrd.unblock.ui.ColorUtils;
+import com.swrd.unblock.utils.ColorUtils;
 
 public abstract class Block implements Bound, Comparable<Block> {
 	public static AtomicInteger idi = new AtomicInteger(0);
