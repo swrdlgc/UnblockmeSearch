@@ -325,6 +325,7 @@ public class BlockGame {
 			public void widgetSelected(SelectionEvent e) {
 				String content = txtEditor.getText();
 				try {
+					//TODO check content
 					List<Block> blocks = PuzzleLoader.getBlocks(content);
 					resetEmptyPuzzle(false);
 					puzzle.setBlocks(blocks);
@@ -352,9 +353,9 @@ public class BlockGame {
 		txtEditor.addVerifyListener(new VerifyListener() {
 			@Override
 			public void verifyText(VerifyEvent e) {
-				if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
-					e.doit = false;
-				}
+//				if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
+//					e.doit = false;
+//				}
 			}
 		});
 		
