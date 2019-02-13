@@ -121,6 +121,10 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 	public String getName() {
 		return name;
 	}
+	
+	public PuzzleType getType() {
+		return type;
+	}
 
 	@Override
 	public Rectangle getBound() {
@@ -218,8 +222,16 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		return null;
 	}
 	
+	public boolean drawBorder() {
+		return blocks == null || blocks.isEmpty();
+	}
+	
 	public List<Block> getBlocks() {
 		return blocks;
+	}
+	
+	public void setBlocks(List<Block> blocks) {
+		this.blocks = blocks;
 	}
 	
 	public void setExit(Rectangle exit) {

@@ -7,6 +7,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 
 import com.swrd.unblock.bound.blocks.Block;
+import com.swrd.unblock.ems.PuzzleType;
 import com.swrd.unblock.puzzle.Puzzle;
 
 import de.kupzog.ktable.KTableCellRenderer;
@@ -40,6 +41,15 @@ public class BlockGameRender implements KTableCellRenderer {
 				gc.setForeground(BlackColor);
 				//gc.drawText("出口", rect.x, rect.y);
 			}
+		}
+		
+		if(puzzle.drawBorder()) {
+			if((PuzzleType.UnBlockMe == puzzle.getType() && (exit.x == col || 6 == row)) ||
+					(PuzzleType.HRRoad == puzzle.getType() && (4 == col || exit.y == row))) {
+				return;
+			}
+			gc.drawRectangle(rect);
+			return;
 		}
 		
 		Block block = puzzle.getBlock(col, row);

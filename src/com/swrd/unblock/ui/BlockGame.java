@@ -1,11 +1,15 @@
 package com.swrd.unblock.ui;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -18,6 +22,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.swrd.unblock.bound.blocks.Block;
+import com.swrd.unblock.bound.blocks.HRBlock;
+import com.swrd.unblock.bound.blocks.P9Block;
+import com.swrd.unblock.bound.blocks.UnBlock;
 import com.swrd.unblock.bound.blocks.score.LevelScorer;
 import com.swrd.unblock.bound.blocks.score.MhtDisScorer;
 import com.swrd.unblock.bound.blocks.score.ScorerFactory;
@@ -25,6 +32,7 @@ import com.swrd.unblock.bound.blocks.score.UnionAreaScorer;
 import com.swrd.unblock.ems.PuzzleType;
 import com.swrd.unblock.puzzle.Puzzle;
 import com.swrd.unblock.puzzle.PuzzleFactory;
+import com.swrd.unblock.puzzle.PuzzleLoader;
 import com.swrd.unblock.puzzle.step.Step;
 import com.swrd.unblock.solver.AstarSolver;
 import com.swrd.unblock.solver.BfsSolver;
@@ -88,7 +96,7 @@ public class BlockGame {
 		table.setModel(model);
 		table.redraw();
 		table.update();
-		txtSolver.setText("");
+		txtSearcher.setText("");
     }
     
 	private void createGameTable(Composite parent) {
@@ -112,13 +120,13 @@ public class BlockGame {
 		});
 	}
 	
+	Button btEdit;
 	Composite compSolve;
 	Composite compEdit;
 	Composite compSearch;
 	Combo cboGame;
 	Combo cboPuzzle;
 	Text txtPuzzle;
-	Button btReset;
 	private void puzzleChanged() {
     	puzzle = ((Puzzle) cboPuzzle.getData(cboPuzzle.getText())).copy();
 		redrawTable();
@@ -141,6 +149,31 @@ public class BlockGame {
 		cboPuzzle.select(0);
 		puzzleChanged();
     }
+    private void resetEmptyPuzzle() {
+    	resetEmptyPuzzle(true);
+    }
+    private void resetEmptyPuzzle(boolean redraw) {
+    	int id = cboGame.getSelectionIndex();
+		if(id == 0) {
+			puzzle = new Puzzle("", PuzzleType.UnBlockMe, UnBlock.Bounds, new ArrayList<Block>());
+			puzzle.setExit(new Rectangle(6, 2, 1, 1));
+		} else if(id == 1) {
+			puzzle = new Puzzle("", PuzzleType.HRRoad, HRBlock.Bounds, new ArrayList<Block>());
+			puzzle.setExit(new Rectangle(1, 5, 2, 1));
+		} else {
+			puzzle = new Puzzle("", PuzzleType.P9, P9Block.Bounds, new ArrayList<Block>());
+		}
+		if(redraw) {
+			redrawTable();
+		}
+    }
+    private void resetPuzzle() {
+    	if(btEdit.getSelection()) {
+			resetEmptyPuzzle();
+		} else {
+			initComboPuzzle();
+		}
+    }
 	private void createControlPanel(Composite parent) {
 		Composite child = new Composite(parent,SWT.NONE);
 		child.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -157,17 +190,16 @@ public class BlockGame {
 				SWTUtils.setVisible(cboPuzzle, true, false);
 				SWTUtils.setVisible(txtPuzzle, false, false);
 				
-				btReset.setText("Reset");
-				
 				SWTUtils.setVisible(compEdit, false, false);
 				SWTUtils.setVisible(compSearch, false, false);
 				SWTUtils.setVisible(compSolve, true, true);
-				
+			
 				table.setEnabled(true);
+				puzzleChanged();
 			}
 		});
 		
-		final Button btEdit = new Button(comp, SWT.RADIO);
+		btEdit = new Button(comp, SWT.RADIO);
 		btEdit.setText("Edit");
 		btEdit.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -175,13 +207,14 @@ public class BlockGame {
 				SWTUtils.setVisible(cboPuzzle, false, false);
 				SWTUtils.setVisible(txtPuzzle, true, false);
 				
-				btReset.setText("Save");
-				
 				SWTUtils.setVisible(compSearch, false, false);
 				SWTUtils.setVisible(compSolve, false, false);
 				SWTUtils.setVisible(compEdit, true, true);
 				
-				table.setEnabled(true);
+				resetEmptyPuzzle();
+				
+				redrawTable();
+				table.setEnabled(false);
 			}
 		});
 		
@@ -194,13 +227,12 @@ public class BlockGame {
 				SWTUtils.setVisible(cboPuzzle, true, false);
 				SWTUtils.setVisible(txtPuzzle, false, false);
 				
-				btReset.setText("Reset");
-				
 				SWTUtils.setVisible(compEdit, false, false);
 				SWTUtils.setVisible(compSolve, false, false);
 				SWTUtils.setVisible(compSearch, true, true);
 				
 				table.setEnabled(false);
+				puzzleChanged();
 			}
 		});
 		
@@ -213,7 +245,7 @@ public class BlockGame {
 		cboGame.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				initComboPuzzle();
+				resetPuzzle();
 			}
 		});
 		
@@ -232,16 +264,15 @@ public class BlockGame {
 		SWTUtils.setVisible(txtPuzzle, false, false);
 		
 		new Label(child, SWT.NONE);
-		btReset = new Button(child, SWT.NONE);
+		Button btReset = new Button(child, SWT.NONE);
 		btReset.setText("Reset");
 		btReset.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if(btEdit.getSelection()) {
-					//TODO reset editor
-				} else {
-					puzzleChanged();
+					txtEditor.setText("");
 				}
+				resetPuzzle();
 			}
 		});
 		
@@ -285,11 +316,60 @@ public class BlockGame {
 		new Label(child, SWT.NONE).setText("//TODO: solve panel");
 	}
 	
+	Text txtEditor;
 	private void createEditPanel(Composite child) {
-		new Label(child, SWT.NONE).setText("//TODO: edit panel");
+		Button btPreview = new Button(child, SWT.NONE);
+		btPreview.setText("Preview");
+		btPreview.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String content = txtEditor.getText();
+				try {
+					List<Block> blocks = PuzzleLoader.getBlocks(content);
+					resetEmptyPuzzle(false);
+					puzzle.setBlocks(blocks);
+					redrawTable();
+				} catch (Exception e1) {
+					MessageDialog.openError(null, "Error", e1.getMessage());
+					return;
+				}
+			}
+		});
+		
+		Button btSave = new Button(child, SWT.NONE);
+		btSave.setText("Save");
+		btSave.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				MessageDialog.openInformation(null, "Info", "Not implement");
+			}
+		});
+		
+		txtEditor = new Text(child, SWT.MULTI|SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL);
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd.horizontalSpan = 2;
+		txtEditor.setLayoutData(gd);
+		txtEditor.addVerifyListener(new VerifyListener() {
+			@Override
+			public void verifyText(VerifyEvent e) {
+				if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
+					e.doit = false;
+				}
+			}
+		});
+		
+		Label lbl = new Label(child, SWT.NONE);
+		gd = new GridData();
+		gd.horizontalSpan = 2;
+		lbl.setLayoutData(gd);
+		lbl.setText("Tips: \n"
+				+ "\t1. input an 2-d char array\n"
+				+ "\t2. input 'a-zA-Z0-9' for non empty cell\n"
+				+ "\t3. input '- ' for empty cell\n"
+				+ "\t4. input 'X' for destination cell\n");
 	}
 	
-    Text txtSolver;
+    Text txtSearcher;
     Solver solver;
 	private void createSearchPanel(Composite child) {
 		new Label(child, SWT.NONE).setText("Algo: ");
@@ -304,7 +384,7 @@ public class BlockGame {
 		cboAlgo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				txtSolver.setText("");
+				txtSearcher.setText("");
 			}
 		});
 		
@@ -348,7 +428,7 @@ public class BlockGame {
 				}
 				solver.search();
 				if (solver.isSolved()) {
-					txtSolver.setText(SolverUtils.printSolver(solver, false)+"\n");
+					txtSearcher.setText(SolverUtils.printSolver(solver, false)+"\n");
 				} else {
 					MessageDialog.openWarning(null, "Info", "Puzzle not solved!");
 				}
@@ -379,7 +459,7 @@ public class BlockGame {
 							Display.getDefault().asyncExec(new Runnable() {
 								@Override
 								public void run() {
-									txtSolver.append(String.format("\n%04d %s", count++, step));
+									txtSearcher.append(String.format("\n%04d %s", count++, step));
 									table.redraw();
 									table.update();
 								}
@@ -398,9 +478,9 @@ public class BlockGame {
 			}
 		});
 		
-		txtSolver = new Text(child, SWT.MULTI|SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.READ_ONLY);
+		txtSearcher = new Text(child, SWT.MULTI|SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.READ_ONLY);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
-		txtSolver.setLayoutData(gd);
+		txtSearcher.setLayoutData(gd);
 	}
 }

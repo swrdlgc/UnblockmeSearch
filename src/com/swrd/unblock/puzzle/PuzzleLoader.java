@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -47,12 +48,39 @@ public class PuzzleLoader {
 		}
 		int blockSize = Integer.parseInt(arr[0]);
 		
+		List<Block> blocks = getBlocks(Arrays.copyOfRange(arr, 1, arr.length));
+
+		assert(blockSize == blocks.size());
+		Puzzle p = new Puzzle(name, type, bounds, blocks);
+		if(arr.length == 7) {
+			p.setExit(new Rectangle(6, 2, 1, 1));
+		} else if(arr.length == 6) {
+			p.setExit(new Rectangle(1, 5, 2, 1));
+		}
+		return p;
+	}
+	
+	public static List<Block> getBlocks(String content) throws Exception {
+		String arr[] = content.split("\n");
+		
+		for(int i = 0; i < arr.length; ++i) {
+			arr[i] = arr[i].replaceAll(" ", "");
+		}
+		
+		return getBlocks(arr);
+	}
+	
+	public static List<Block> getBlocks(String arr[]) throws Exception {
+		if(arr.length != 6 && arr.length != 5 && arr.length != 3) {
+			throw new Exception("Invalid array length");
+		}
+			
 		Map<Character, List<Point>> map1 = new LinkedHashMap<>();
-		for(int i = 1; i < arr.length; ++i) {
+		for(int i = 0; i < arr.length; ++i) {
 			String s = arr[i];
 			for(int j = 0; j < s.length(); ++j) {
 				char c = s.charAt(j);
-				Point p = new Point(j, i - 1);
+				Point p = new Point(j, i);
 				if(c != '-') {
 					if(!map1.containsKey(c)) {
 						map1.put(c, new ArrayList<>());
@@ -80,7 +108,7 @@ public class PuzzleLoader {
 				throw new Exception("block " + e.getKey() + " is invalid");
 			}
 			
-			if(arr.length == 7) {
+			if(arr.length == 6) {
 				if (v.height * v.width < 2) {
 					throw new Exception("block " + e.getKey() + " is invalid");
 				}
@@ -89,7 +117,7 @@ public class PuzzleLoader {
 				} else {
 					block = new UnBlock(e.getValue(), e.getKey());
 				}
-			} else if(arr.length == 6) {
+			} else if(arr.length == 5) {
 				if(e.getKey() == 'X') {
 					block = new HRBlock(e.getValue(), HRBlock.Destination, e.getKey());
 				} else {
@@ -101,17 +129,8 @@ public class PuzzleLoader {
 			blocks.add(block);
 		}
 		
-
-		assert(blockSize == blocks.size());
-		Puzzle p = new Puzzle(name, type, bounds, blocks);
-		if(arr.length == 7) {
-			p.setExit(new Rectangle(6, 2, 1, 1));
-		} else if(arr.length == 6) {
-			p.setExit(new Rectangle(1, 5, 2, 1));
-		}
-		return p;
+		return blocks;
 	}
-	
 
 	private static String readToString(File file) throws Exception {  
         String encoding = "UTF-8";  
