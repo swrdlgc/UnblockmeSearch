@@ -329,23 +329,26 @@ public class BlockGame {
 	}
 	
 	Text txtEditor;
+	private void initEmptyPuzzle() {
+		String content = txtEditor.getText();
+		try {
+			//TODO check content
+			List<Block> blocks = PuzzleLoader.getBlocks(content);
+			resetEmptyPuzzle(false);
+			puzzle.setBlocks(blocks);
+			redrawTable();
+		} catch (Exception e1) {
+			MessageDialog.openError(null, "Error", e1.getMessage());
+			return;
+		}
+	}
 	private void createEditPanel(Composite child) {
 		Button btPreview = new Button(child, SWT.NONE);
 		btPreview.setText("Preview");
 		btPreview.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String content = txtEditor.getText();
-				try {
-					//TODO check content
-					List<Block> blocks = PuzzleLoader.getBlocks(content);
-					resetEmptyPuzzle(false);
-					puzzle.setBlocks(blocks);
-					redrawTable();
-				} catch (Exception e1) {
-					MessageDialog.openError(null, "Error", e1.getMessage());
-					return;
-				}
+				initEmptyPuzzle();
 			}
 		});
 		
@@ -354,7 +357,27 @@ public class BlockGame {
 		btSave.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				MessageDialog.openInformation(null, "Info", "Not implement");
+				String name = txtPuzzle.getText().trim();
+				if(name.isEmpty()) {
+					MessageDialog.openError(null, "Error", "Puzzle name cannot be empty");
+					return;
+				}
+				if(!name.contains(".")) {
+					name += ".puzzle";
+				}
+				if(!name.endsWith(".puzzle")) {
+					MessageDialog.openError(null, "Error", "Puzzle name must end with .puzzle");
+					return;
+				}
+				initEmptyPuzzle();
+				puzzle.setName(name);
+				if(PuzzleFactory.contains(puzzle)) {
+					MessageDialog.openError(null, "Error", "Puzzle name exist");
+					return;
+				}
+				if(PuzzleFactory.addPuzzle(puzzle, true)) {
+					MessageDialog.openInformation(null, "Info", "Puzzle save success");
+				}
 			}
 		});
 		
@@ -365,7 +388,9 @@ public class BlockGame {
 		txtEditor.addVerifyListener(new VerifyListener() {
 			@Override
 			public void verifyText(VerifyEvent e) {
-				if(e.character != 0 && "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
+				if(e.character != 0 && 
+						e.character != SWT.DEL && e.character != SWT.BS && e.character != SWT.CR && e.character != SWT.LF &&
+						"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
 					e.doit = false;
 				}
 			}

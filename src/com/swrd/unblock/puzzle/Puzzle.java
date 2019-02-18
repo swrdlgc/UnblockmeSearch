@@ -19,7 +19,7 @@ import com.swrd.unblock.puzzle.step.Step;
 import com.swrd.unblock.utils.RectangleUtils;
 
 public class Puzzle implements Bound, Comparable<Puzzle> {
-	private final String name;
+	private String name;
 	private final PuzzleType type;
 	private final Rectangle bound;
 	private List<Block> blocks;
@@ -116,6 +116,10 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 			list.add(b.copy());
 		}
 		return list;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getName() {
