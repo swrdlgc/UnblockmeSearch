@@ -96,6 +96,8 @@ public class BlockGame {
 		table.setModel(model);
 		table.redraw();
 		table.update();
+		txtSolver.setText("");
+		txtSolver.setData("id", 1);
 		txtSearcher.setText("");
     }
     
@@ -113,7 +115,12 @@ public class BlockGame {
         table.setColorTopBorder(ColorUtils.White);
 		table.addCellSelectionListener(new KTableCellSelectionAdapter() {
 			public void cellSelected(int col, int row, int statemask) {
-				puzzle.selected(col, row);
+				Step step = puzzle.selected(col, row);
+				if (step != null) {
+					int id = (int) txtSolver.getData("id");
+					txtSolver.append(String.format("\n%04d %s", id, step));
+					txtSolver.setData("id", id+1);
+				}
 				table.redraw();
 				table.update();
 			}
@@ -193,9 +200,10 @@ public class BlockGame {
 				SWTUtils.setVisible(compEdit, false, false);
 				SWTUtils.setVisible(compSearch, false, false);
 				SWTUtils.setVisible(compSolve, true, true);
-			
-				table.setEnabled(true);
+
+				initComboPuzzle();
 				puzzleChanged();
+				table.setEnabled(true);
 			}
 		});
 		
@@ -212,7 +220,6 @@ public class BlockGame {
 				SWTUtils.setVisible(compEdit, true, true);
 				
 				resetEmptyPuzzle();
-				
 				redrawTable();
 				table.setEnabled(false);
 			}
@@ -231,8 +238,9 @@ public class BlockGame {
 				SWTUtils.setVisible(compSolve, false, false);
 				SWTUtils.setVisible(compSearch, true, true);
 				
-				table.setEnabled(false);
+				initComboPuzzle();
 				puzzleChanged();
+				table.setEnabled(false);
 			}
 		});
 		
@@ -312,8 +320,12 @@ public class BlockGame {
 		return comp;
 	}
 	
+	Text txtSolver;
 	private void createSolvePanel(Composite child) {
-		new Label(child, SWT.NONE).setText("//TODO: solve panel");
+		txtSolver = new Text(child, SWT.MULTI|SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.READ_ONLY);
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd.horizontalSpan = 2;
+		txtSolver.setLayoutData(gd);
 	}
 	
 	Text txtEditor;
@@ -353,9 +365,9 @@ public class BlockGame {
 		txtEditor.addVerifyListener(new VerifyListener() {
 			@Override
 			public void verifyText(VerifyEvent e) {
-//				if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
-//					e.doit = false;
-//				}
+				if(e.character != 0 && "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
+					e.doit = false;
+				}
 			}
 		});
 		

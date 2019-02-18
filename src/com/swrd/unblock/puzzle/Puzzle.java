@@ -177,7 +177,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		return new Point(col, row);
 	}
 
-	public void selected(int col, int row) {
+	public Step selected(int col, int row) {
 		Block block = getBlock(col, row);
 		if(block == null) {
 			for(Block b : blocks) {
@@ -187,14 +187,13 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 						int offset = b.check(status, direction);
 						if(offset >= 1) {
 							b.move(direction, offset);
-							System.err.println(new Step(b, direction, offset, 0));
 							calcStatus();
 							if(isSolved()) {
 								MessageDialog.openInformation(null, "Good", "Puzzle solved!");
 							}
+							return new Step(b, direction, offset, 0);
 						}
 					}
-					return;
 				}
 			}
 		} else {
@@ -203,6 +202,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 			}
 			block.setSelected(true);
 		}
+		return null;
 	}
 	
 	public boolean isSelected(int col, int row) {
