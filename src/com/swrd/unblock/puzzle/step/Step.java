@@ -44,7 +44,7 @@ public class Step {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("step: %c[%s]->{%10s %d}", 
+		sb.append(String.format("step: %c[%s] -> {%5s %d}", 
 				block.getLabel(), 
 				RectangleUtils.EncodeRectangle(block.getCell()),
 				direct, offset));

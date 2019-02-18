@@ -30,6 +30,7 @@ import com.swrd.unblock.bound.blocks.score.MhtDisScorer;
 import com.swrd.unblock.bound.blocks.score.ScorerFactory;
 import com.swrd.unblock.bound.blocks.score.UnionAreaScorer;
 import com.swrd.unblock.ems.PuzzleType;
+import com.swrd.unblock.font.FontManager;
 import com.swrd.unblock.puzzle.Puzzle;
 import com.swrd.unblock.puzzle.PuzzleFactory;
 import com.swrd.unblock.puzzle.PuzzleLoader;
@@ -326,6 +327,7 @@ public class BlockGame {
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		txtSolver.setLayoutData(gd);
+		FontManager.setFont(txtSolver);
 	}
 	
 	Text txtEditor;
@@ -385,6 +387,7 @@ public class BlockGame {
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		txtEditor.setLayoutData(gd);
+		FontManager.setFont(txtEditor);
 		txtEditor.addVerifyListener(new VerifyListener() {
 			@Override
 			public void verifyText(VerifyEvent e) {
@@ -520,5 +523,6 @@ public class BlockGame {
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		txtSearcher.setLayoutData(gd);
+		FontManager.setFont(txtSearcher);
 	}
 }
