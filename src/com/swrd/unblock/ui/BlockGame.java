@@ -514,7 +514,7 @@ public class BlockGame {
 									block.move(step.getDirect(), step.getOffset());
 								}
 							}
-							Display.getDefault().asyncExec(new Runnable() {
+							Display.getDefault().syncExec(new Runnable() {
 								@Override
 								public void run() {
 									txtSearcher.append(String.format("\n%04d %s", count++, step));
@@ -524,6 +524,7 @@ public class BlockGame {
 							});
 							try { Thread.sleep(200); } catch (InterruptedException e1) {}
 						}
+						solver = null;
 						Display.getDefault().syncExec(new Runnable() {
 							@Override
 							public void run() {
