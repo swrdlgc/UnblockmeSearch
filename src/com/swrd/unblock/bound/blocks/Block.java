@@ -10,6 +10,7 @@ import com.swrd.unblock.bound.blocks.score.ScorerFactory;
 import com.swrd.unblock.bound.ds.bitarray.BitArray2D;
 import com.swrd.unblock.ems.BlockType;
 import com.swrd.unblock.ems.Direction;
+import com.swrd.unblock.puzzle.step.Step;
 import com.swrd.unblock.utils.ColorUtils;
 
 public abstract class Block implements Bound, Comparable<Block> {
@@ -97,18 +98,40 @@ public abstract class Block implements Bound, Comparable<Block> {
 		int i = 1;
 		for (;; ++i) {
 			Rectangle r = new Rectangle(cell);
+// 通过计算移动后新增矩形来优化，没有效果，可能因为cell面积小
+//			int x = 0, y = 0, w = 0, h = 0;
 			switch (dir) {
 			case Left:
 				r.x = r.x - i;
+				
+//				x = r.x;
+//				y = cell.y;
+//				w = i;
+//				h = cell.height;
 				break;
 			case Right:
 				r.x = r.x + i;
+				
+//				x = cell.x + cell.width;
+//				y = cell.y;
+//				w = i;
+//				h = cell.height;
 				break;
 			case Up:
 				r.y = r.y - i;
+				
+//				x = cell.x;
+//				y = r.y;
+//				w = cell.width;
+//				h = i;
 				break;
 			case Down:
 				r.y = r.y + i;
+				
+//				x = cell.x;
+//				y = cell.y + cell.height;
+//				w = cell.width;
+//				h = i;
 				break;
 			}
 			if (!ba.checkBound(r)) {
@@ -124,6 +147,14 @@ public abstract class Block implements Bound, Comparable<Block> {
 					}
 				}
 			}
+						
+//			for(int ri = 0; ri < w; ++ri) {
+//				for(int rj = 0; rj < h; ++rj) {
+//					if (ba.isFilled(x+ri, y+rj)) {
+//						return i - 1;
+//					}
+//				}
+//			}
 			
 //			r = RectangleUtils.SubRectangle(r, cell);
 //			if (ba.isMarked(r)) {
@@ -156,20 +187,20 @@ public abstract class Block implements Bound, Comparable<Block> {
 		return cell.contains(col, row);
 	}
 	
-	public Direction getDirection(int col, int row) {
+	public Step getStep(int col, int row) {
 		if(cell.x <= col && col < cell.x + cell.width) {
 			if(row < cell.y) {
-				return Direction.Up;
+				return new Step(this, Direction.Up, cell.y - row, 0);
 			} else if(row >= cell.y + cell.height) {
-				return Direction.Down;
+				return new Step(this, Direction.Down, row - cell.y - cell.height + 1, 0);
 			}
 		}
 		if(cell.y <= row && row < cell.y + cell.height) {
 			if(col < cell.x) {
-				return Direction.Left;
+				return new Step(this, Direction.Left, cell.x - col, 0);
 			}
 			if(col >= cell.x + cell.width) {
-				return Direction.Right;
+				return new Step(this, Direction.Right, col - cell.x - cell.width + 1, 0);
 			}
 		}
 		

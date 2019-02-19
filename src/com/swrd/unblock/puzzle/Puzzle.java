@@ -186,17 +186,14 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		if(block == null) {
 			for(Block b : blocks) {
 				if(b.isSelected()) {
-					Direction direction = b.getDirection(col, row);
-					if(direction != null) {
-						int offset = b.check(status, direction);
-						if(offset >= 1) {
-							b.move(direction, offset);
-							calcStatus();
-							if(isSolved()) {
-								MessageDialog.openInformation(null, "Good", "Puzzle solved!");
-							}
-							return new Step(b, direction, offset, 0);
+					Step step = b.getStep(col, row);
+					if(step != null) {
+						b.move(step.getDirect(), step.getOffset());
+						calcStatus();
+						if(isSolved()) {
+							MessageDialog.openInformation(null, "Good", "Puzzle solved!");
 						}
+						return step;
 					}
 				}
 			}
