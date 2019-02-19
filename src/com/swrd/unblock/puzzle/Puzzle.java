@@ -50,6 +50,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 			// 对于华容道来说，长宽一样的方块等价，可减少状态空间
 			Collections.sort(blocks); 
 		}
+		//java不支持内存拷贝，没法通过上一步状态来减少计算，进行优化
 		if(!calcStatus()) {
 			System.err.println("calc status error");
 		}

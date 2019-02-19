@@ -29,4 +29,9 @@ public class AstarSolver extends AbstractSolver {
 	protected void putPuzzle(Puzzle p) {
 		pq.add(p);
 	}
+	
+	@Override
+	protected void removePuzzle(Puzzle p) {
+		pq.remove(p);
+	}
 }

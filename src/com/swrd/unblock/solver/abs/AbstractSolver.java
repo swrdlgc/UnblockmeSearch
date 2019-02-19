@@ -31,6 +31,8 @@ public abstract class AbstractSolver implements Solver {
 	protected abstract Puzzle getNextPuzzle();
 
 	protected abstract void putPuzzle(Puzzle p);
+	
+	protected abstract void removePuzzle(Puzzle p);
 
 	private boolean checkSolved(Puzzle p) {
 		if (p.isSolved()) {
@@ -47,7 +49,7 @@ public abstract class AbstractSolver implements Solver {
 			return false;
 		}
 		int s = 0;
-//		int os = 0;
+		int os = 0;
 		if (p.getStep() != null) {
 			s = p.getStep().getLevel();
 			if(s > maxStep) {
@@ -55,10 +57,15 @@ public abstract class AbstractSolver implements Solver {
 			}
 		}
 		Puzzle op = expandNodes.get(key);
-//		if (op != null && op.getStep() != null) {
-//			os = op.getStep().getLevel();
-//		}
-		if (op == null) {// || os > s) { // replace with low level can get better ans, but waste a lot of time.
+		if (op != null && op.getStep() != null) {
+			os = op.getStep().getLevel();
+			if(os > s) {
+				//NOTICE: replace with low level can get better ans, but waste some time.
+				removePuzzle(op);
+				op = null;
+			}
+		}
+		if (op == null) { 
 			putPuzzle(p);
 			expandNodes.put(key, p);
 //			if(expandNodes.size() % 1000 == 0) {

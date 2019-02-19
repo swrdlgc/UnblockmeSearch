@@ -1,7 +1,7 @@
 package com.swrd.unblock.solver;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 import com.swrd.unblock.ems.SolverType;
 import com.swrd.unblock.puzzle.Puzzle;
@@ -9,7 +9,7 @@ import com.swrd.unblock.solver.abs.AbstractSolver;
 
 public class DfsSolver extends AbstractSolver {
 
-	private List<Puzzle> puzzles = new LinkedList<>();
+	private LinkedHashMap<String, Puzzle> puzzles = new LinkedHashMap<>();
 	
 	public DfsSolver(Puzzle puzzle, String name) {
 		this(puzzle, name, SolverType.DFS);
@@ -25,12 +25,16 @@ public class DfsSolver extends AbstractSolver {
 		if(puzzles.isEmpty()) {
 			return null;
 		}
-		return puzzles.remove(0);
+		Iterator<String> it = puzzles.keySet().iterator();
+		return puzzles.remove(it.next());
 	}
 
 	@Override
 	protected void putPuzzle(Puzzle p) {
-		puzzles.add(0, p);
+		puzzles.put(p.getKey(), p);
 	}
 
+	@Override
+	protected void removePuzzle(Puzzle p) {
+	}
 }

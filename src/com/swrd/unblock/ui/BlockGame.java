@@ -191,7 +191,7 @@ public class BlockGame {
 		Composite comp = new Composite(child, SWT.NONE);
 		comp.setLayout(new GridLayout(3, true));
 		Button btSolve = new Button(comp, SWT.RADIO);
-		btSolve.setText("Solve");
+		btSolve.setText("Play");
 		btSolve.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {

@@ -6,16 +6,12 @@ Features:
     Support DFS, BFS, A*, DFS+StepIn, IDEA* Algorithm.
     Support UnblockMe, HuaRongRoad, P9(octet, 八数码) games.
     Support Manhattan, UnionArea Scorer. 
+    Support (play, edit, auto-search) UI.
     
 TODO:
     Double-BFS for P9(Ending known games).
     Build Graph for P9(Status Space Known).
     Puzzle Pre-Judgement.(May have no ans).
-    IDA* Algorithm. - I
-    Idea scoring puzzle.
-        union area - I
-        Manhattan distance - I
-    UI - I
     
 Performance:(directory-res for more)
     Time:(t-unit: ms)

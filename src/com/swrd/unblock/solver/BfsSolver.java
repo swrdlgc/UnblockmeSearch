@@ -28,4 +28,9 @@ public class BfsSolver extends AbstractSolver {
 	protected void putPuzzle(Puzzle p) {
 		puzzles.add(p);
 	}
+	
+	@Override
+	protected void removePuzzle(Puzzle p) {
+		puzzles.remove(p);
+	}
 }
