@@ -49,7 +49,6 @@ public abstract class AbstractSolver implements Solver {
 			return false;
 		}
 		int s = 0;
-		int os = 0;
 		if (p.getStep() != null) {
 			s = p.getStep().getLevel();
 			if(s > maxStep) {
@@ -57,14 +56,17 @@ public abstract class AbstractSolver implements Solver {
 			}
 		}
 		Puzzle op = expandNodes.get(key);
-		if (op != null && op.getStep() != null) {
-			os = op.getStep().getLevel();
-			if(os > s) {
-				//NOTICE: replace with low level can get better ans, but waste some time.
-				removePuzzle(op);
-				op = null;
-			}
-		}
+//		int os = 0;
+//		if(SolverType.IAstar == type || SolverType.IDFS == type) {
+//			if (op != null && op.getStep() != null) {
+//				os = op.getStep().getLevel();
+//				if(os > s) {
+//					//NOTICE: replace with low level can get better answer, but waste some time.
+//					removePuzzle(op);
+//					op = null;
+//				}
+//			}
+//		}
 		if (op == null) { 
 			putPuzzle(p);
 			expandNodes.put(key, p);

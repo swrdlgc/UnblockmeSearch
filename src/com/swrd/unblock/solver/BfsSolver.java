@@ -32,5 +32,6 @@ public class BfsSolver extends AbstractSolver {
 	@Override
 	protected void removePuzzle(Puzzle p) {
 		puzzles.remove(p);
+		System.err.println("should never get here!");
 	}
 }
