@@ -1,7 +1,9 @@
 package com.swrd.unblock.ui;
 
 import java.awt.Rectangle;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -119,8 +121,23 @@ public class BlockGame {
 				Step step = puzzle.selected(col, row);
 				if (step != null) {
 					int id = (int) txtSolver.getData("id");
+					if(id == 1) {
+						long beginTime = System.currentTimeMillis();
+						txtSolver.setText("BeginTime: " 
+								+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(beginTime))
+								+ " s");
+						txtSolver.setData("BeginTime", beginTime);
+					}
 					txtSolver.append(String.format("\n%04d %s", id, step));
 					txtSolver.setData("id", id+1);
+					if(puzzle.isSolved()) {
+						long endTime = System.currentTimeMillis();
+						long beginTime = (long)txtSolver.getData("BeginTime");
+						txtSolver.append("\nEndTime: " 
+								+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(endTime)) 
+								+ " s");
+						txtSolver.append("\nUsedTime: " + (endTime - beginTime)/1000 + " s");
+					}
 				}
 				table.redraw();
 				table.update();
@@ -301,8 +318,8 @@ public class BlockGame {
 		
 		initComboPuzzle();
 		
-		SWTUtils.setVisible(compEdit, false, false);
 		SWTUtils.setVisible(compSolve, false, false);
+		SWTUtils.setVisible(compEdit, false, false);
 		SWTUtils.setVisible(compSearch, true, true);
 		table.setEnabled(false);
 	}
@@ -329,7 +346,7 @@ public class BlockGame {
 		txtSolver.setLayoutData(gd);
 		FontManager.setFont(txtSolver);
 	}
-	
+
 	Text txtEditor;
 	private void initEmptyPuzzle() {
 		String content = txtEditor.getText();
@@ -393,7 +410,7 @@ public class BlockGame {
 			public void verifyText(VerifyEvent e) {
 				if(e.character != 0 && 
 						e.character != SWT.DEL && e.character != SWT.BS && e.character != SWT.CR && e.character != SWT.LF &&
-						"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
+						"-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0234567 ".indexOf(e.character) == -1) {
 					e.doit = false;
 				}
 			}
