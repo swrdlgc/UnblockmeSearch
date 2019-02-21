@@ -187,7 +187,7 @@ public class Puzzle implements Bound, Comparable<Puzzle> {
 		if(block == null) {
 			for(Block b : blocks) {
 				if(b.isSelected()) {
-					Step step = b.getStep(col, row);
+					Step step = b.getStep(Math.min(col, bound.width-1), Math.min(row, bound.height-1));
 					if(step != null) {
 						b.move(step.getDirect(), step.getOffset());
 						calcStatus();
