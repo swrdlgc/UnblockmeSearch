@@ -1,11 +1,11 @@
 # UnblockmeSearch
 A Moving-Block_Game searcher.
 
-# Screenshort(directory-img for more)
+# Screenshort [more](/img)
 Play
 ![alt text](img/play.1.png)
 Edit
-![alt text](img/edit.1.png)
+![alt text](img/edit.2.png)
 Search
 ![alt text](img/search.1.png)
 
@@ -21,7 +21,7 @@ Search
 2. Build Graph for P9(Status Space Known).
 3. Puzzle Pre-Judgement.(May have no ans).
     
-# Performance(directory-res for more)
+# Performance [more](/res)
     Time:(t-unit: ms)
                    UnblockMe      HuaRongRoad     P9
     DFS            121            418             153
@@ -52,10 +52,9 @@ Search
     P9:           =    362880    =    9!
     
 # Mark
-```
-1. 对于华容道，一步可以两个方向，比如L1R1
-2. 可以根据空格位置，只有空格周围的方块才能移动，可优化搜索
-    a. UnblockMe只有横竖 2 种方向，每个方块最多能移动 4 次
-    b. HuaRongRoad只有 1 个空格，1 个状态最多 5 个相邻状态
-    c. P9只有 1 个空格，1 个状态最多 2 个相邻状态
-```
+    1. 对于华容道，一步可以两个方向，比如L1R1
+    2. 可以根据空格位置，只有空格周围的方块才能移动，可优化搜索
+        a. UnblockMe只有横竖 2 种方向，每个方块最多能移动 4 次
+        b. HuaRongRoad只有 1 个空格，1 个状态最多 5 个相邻状态
+        c. P9只有 1 个空格，1 个状态最多 2 个相邻状态
+
