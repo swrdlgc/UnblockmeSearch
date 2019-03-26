@@ -1,7 +1,7 @@
 # UnblockmeSearch
 A Moving-Block_Game searcher.
 
-# Screenshort [more](/img)
+# [Screenshort](/img)
 ![alt text](img/search.1.png)
 
 # Features
@@ -11,7 +11,7 @@ A Moving-Block_Game searcher.
 4. Support Manhattan, UnionArea Scorer. 
 5. Support (play, edit, auto-search) UI.
     
-# Performance [more](/res)
+# [Performance](/res)
     Time:(t-unit: ms)
                    UnblockMe      HuaRongRoad     P9
     DFS            121            418             153
